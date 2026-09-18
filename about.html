@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Stackly Consulting</title>
+<meta name="description" content="Stackly Consulting is an independent advisory firm founded by operators — learn who we are, how we work, and the team behind 180+ engagements.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:        #F3EEE3;
+    --paper:        #EAE2CE;
+    --ink:          #1E2A22;
+    --ink-soft:     #354438;
+    --brass:        #A9832F;
+    --brass-light:  #C9A24E;
+    --forest:       #35503B;
+    --forest-deep:  #223026;
+    --white:        #FFFFFF;
+    --line: rgba(30,42,34,0.14);
+
+    --serif: "Newsreader", Georgia, serif;
+    --sans:  "Manrope", -apple-system, sans-serif;
+    --mono:  "IBM Plex Mono", monospace;
+
+    --maxw: 1800px;
+    --pad:  clamp(20px, 3vw, 56px);
+
+    --ease: cubic-bezier(.22,.9,.3,1);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:500; margin:0; color:var(--ink); letter-spacing:-0.01em; }
+  h2{ font-size:clamp(2rem, 3.4vw, 3rem); line-height:1.12; }
+  h3{ font-size:1.4rem; line-height:1.3; }
+  p{ margin:0; color:var(--ink-soft); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--brass);
+    letter-spacing:0.02em; margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--brass); display:inline-block; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:14px 28px; border-radius:3px; font-weight:600; font-size:0.95rem;
+    border:1px solid transparent; transition:transform .35s var(--ease), background .3s, color .3s, border-color .3s;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--ink); color:var(--cream); }
+  .btn-primary:hover{ background:var(--forest); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--cream); transform:translateY(-2px); }
+  .btn-brass{ background:var(--brass); color:var(--ink); }
+  .btn-brass:hover{ background:var(--brass-light); transform:translateY(-2px); }
+  .btn-outline-cream{ background:transparent; color:var(--cream); border-color:rgba(243,238,227,.5); }
+  .btn-outline-cream:hover{ background:var(--cream); color:var(--ink); }
+  .btn-login{ background:var(--forest); color:var(--cream); }
+  .btn-login:hover{ background:var(--forest-deep); transform:translateY(-2px); }
+  .btn-sm{ padding:10px 20px; font-size:0.85rem; }
+  .btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+  section{ position:relative; }
+
+  /* ============ HEADER ============ */
+  header{
+    position:sticky; top:0; z-index:200;
+    background:rgba(243,238,227,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s;
+  }
+  header.scrolled{ box-shadow:0 8px 24px rgba(30,42,34,0.08); }
+  .header-inner{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    gap:24px; padding-top:14px; padding-bottom:14px;
+  }
+  .logo img{ height:40px; width:auto; }
+  nav.main-nav{ justify-self:center; }
+  nav.main-nav ul{ display:flex; align-items:center; gap:clamp(18px,2.2vw,34px); }
+  nav.main-nav a{
+    font-size:0.95rem; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0; transition:color .25s;
+  }
+  nav.main-nav a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+    background:var(--brass); transition:right .35s var(--ease);
+  }
+  nav.main-nav a:hover, nav.main-nav a.active{ color:var(--ink); }
+  nav.main-nav a:hover::after, nav.main-nav a.active::after{ right:0; }
+  .header-actions{ justify-self:end; display:flex; align-items:center; gap:16px; }
+  .header-actions .btn-login{ padding:11px 24px; }
+
+  .hamburger{
+    display:none; flex-direction:column; justify-content:center; align-items:center;
+    width:44px; height:44px; border:1px solid var(--line); border-radius:3px; background:transparent;
+    gap:5px;
+  }
+  .hamburger span{ width:20px; height:2px; background:var(--ink); display:block; transition:transform .3s var(--ease), opacity .3s; }
+  .hamburger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2){ opacity:0; }
+  .hamburger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-drawer{
+    position:fixed; inset:0 0 0 auto; width:min(360px,86vw); height:100vh;
+    background:var(--ink); color:var(--cream); z-index:400;
+    transform:translateX(100%); transition:transform .45s var(--ease);
+    display:flex; flex-direction:column; padding:24px;
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{ transform:translateX(0); }
+  .drawer-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; }
+  .drawer-top img{ height:30px; filter:brightness(0) invert(1); }
+  .drawer-exit{
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(243,238,227,.3);
+    background:transparent; color:var(--cream); position:relative; flex-shrink:0;
+  }
+  .drawer-exit::before, .drawer-exit::after{
+    content:""; position:absolute; left:50%; top:50%; width:16px; height:2px; background:var(--cream);
+  }
+  .drawer-exit::before{ transform:translate(-50%,-50%) rotate(45deg); }
+  .drawer-exit::after{ transform:translate(-50%,-50%) rotate(-45deg); }
+
+  .drawer-nav{ display:flex; flex-direction:column; gap:4px; margin-bottom:auto; }
+  .drawer-nav a{
+    font-family:var(--serif); font-size:1.5rem; padding:14px 4px; border-bottom:1px solid rgba(243,238,227,.12);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .drawer-nav a span{ font-family:var(--mono); font-size:0.75rem; color:var(--brass-light); }
+  .drawer-nav a.active{ color:var(--brass-light); }
+  .drawer-login{ margin-top:28px; }
+  .drawer-login .btn{ width:100%; }
+  .scrim{
+    position:fixed; inset:0; background:rgba(30,42,34,.5); z-index:390;
+    opacity:0; pointer-events:none; transition:opacity .4s;
+  }
+  .scrim.show{ opacity:1; pointer-events:auto; }
+
+  @media (max-width:900px){
+    nav.main-nav, .header-actions .btn-login{ display:none; }
+    .hamburger{ display:flex; }
+    .header-inner{ grid-template-columns:auto auto; justify-content:space-between; }
+  }
+
+  /* ============ PAGE HERO (inner pages) ============ */
+  .page-hero{
+    padding:clamp(64px,10vw,120px) 0 clamp(50px,7vw,80px);
+    background:
+      radial-gradient(ellipse 620px 420px at 88% -8%, rgba(169,131,47,0.16), transparent 60%),
+      var(--cream);
+    overflow:hidden;
+    text-align:center;
+  }
+  .page-hero .eyebrow{ justify-content:center; }
+  .page-hero h1{ font-size:clamp(2.4rem, 5.4vw, 4.2rem); line-height:1.06; margin:0 auto 18px; max-width:18ch; }
+  .page-hero h1 em{ font-style:italic; color:var(--forest); }
+  .page-hero .reveal-word{ display:inline-block; overflow:hidden; vertical-align:top; }
+  .page-hero .reveal-word span{ display:inline-block; transform:translateY(115%); }
+  .page-hero p.lead{ font-size:1.1rem; max-width:56ch; margin:0 auto; }
+  .breadcrumb{ display:flex; gap:8px; justify-content:center; font-family:var(--mono); font-size:0.78rem; color:var(--ink-soft); margin-bottom:20px; }
+  .breadcrumb a{ color:var(--brass); }
+  .breadcrumb span{ opacity:.5; }
+
+  /* generic reveal helper */
+  .reveal-up{ opacity:0; transform:translateY(28px); }
+
+  /* ============ CTA BAND ============ */
+  .cta-band{
+    margin:0 var(--pad); border-radius:6px; padding:clamp(50px,8vw,90px) clamp(24px,6vw,70px);
+    background:linear-gradient(120deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:var(--cream); text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-band h2{ color:var(--cream); max-width:20ch; margin:0 auto 20px; }
+  .cta-band p{ color:rgba(243,238,227,.78); max-width:50ch; margin:0 auto 34px; }
+  .cta-band .btns{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--ink); color:var(--cream); padding:clamp(70px,8vw,100px) 0 0; margin-top:clamp(70px,8vw,110px); }
+  .footer-grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:60px; border-bottom:1px solid rgba(243,238,227,0.12); }
+  .footer-brand img{ height:34px; filter:brightness(0) invert(1); margin-bottom:20px; }
+  .footer-brand p{ color:rgba(243,238,227,0.68); font-size:0.92rem; max-width:34ch; margin-bottom:26px; }
+  .social-row{ display:flex; gap:12px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:50%; border:1px solid rgba(243,238,227,0.28);
+    display:flex; align-items:center; justify-content:center; transition:.3s;
+  }
+  .social-row a svg{ width:18px; height:18px; fill:var(--cream); flex-shrink:0; transition:.3s; }
+  .social-row a:hover{ border-color:transparent; }
+  .social-row a:hover svg{ fill:#fff; }
+  .social-row a.sm-linkedin:hover{ background:#0A66C2; }
+  .social-row a.sm-x:hover{ background:#000000; }
+  .social-row a.sm-instagram:hover{ background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-row a.sm-youtube:hover{ background:#FF0000; }
+  .footer-col h4{ color:var(--brass-light); font-family:var(--sans); font-size:0.85rem; font-weight:700; margin-bottom:20px; }
+  .footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+  .footer-col a{ color:rgba(243,238,227,0.72); font-size:0.92rem; transition:.25s; }
+  .footer-col a:hover{ color:var(--brass-light); padding-left:4px; }
+  .footer-addr address{ font-style:normal; color:rgba(243,238,227,0.72); font-size:0.92rem; line-height:1.7; margin-bottom:18px; }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding:26px 0; flex-wrap:wrap; gap:12px; }
+  .footer-bottom p{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal{ display:flex; gap:22px; }
+  .footer-bottom .legal a{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal a:hover{ color:var(--cream); }
+  @media (max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .footer-grid{ grid-template-columns:1fr; } .footer-bottom{ flex-direction:column; align-items:flex-start; } }
+
+
+  /* ============ ABOUT PAGE HERO ============ */
+  .page-hero.about-hero{ text-align:left; }
+  .page-hero.about-hero .wrap{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(30px,5vw,60px); align-items:center; }
+  .page-hero.about-hero h1{ margin:0 0 18px; text-align:left; }
+  .page-hero.about-hero p.lead{ margin:0; text-align:left; }
+  .page-hero.about-hero .eyebrow{ justify-content:flex-start; }
+  .page-hero.about-hero .breadcrumb{ justify-content:flex-start; }
+  .ah-visual{ position:relative; height:clamp(340px,40vw,460px); }
+  .ah-img{ position:absolute; border-radius:4px; overflow:hidden; box-shadow:0 30px 60px -20px rgba(30,42,34,0.35); }
+  .ah-img img{ width:100%; height:100%; object-fit:cover; }
+  .ah-1{ width:66%; height:74%; top:0; right:0; }
+  .ah-2{ width:44%; height:44%; bottom:0; left:0; border:6px solid var(--cream); }
+  @media (max-width:900px){ .page-hero.about-hero .wrap{ grid-template-columns:1fr; } .ah-visual{ margin-top:24px; height:360px; } }
+
+  /* ============ STORY ============ */
+  .story{ padding:clamp(80px,10vw,140px) 0; }
+  .story .wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:clamp(30px,6vw,80px); align-items:center; }
+  .story-imgwrap{ position:relative; }
+  .story-imgwrap img{ border-radius:4px; width:100%; height:520px; object-fit:cover; }
+  .story-badge{
+    position:absolute; bottom:-24px; right:-20px; background:var(--ink); color:var(--cream);
+    padding:20px 22px; border-radius:3px; width:170px;
+  }
+  .story-badge strong{ font-family:var(--serif); font-size:2rem; display:block; color:var(--brass-light); }
+  .story-badge span{ font-size:0.8rem; }
+  .story-text p.lead{ font-size:1.2rem; font-family:var(--serif); color:var(--ink); margin-bottom:22px; line-height:1.5; }
+  .story-list{ display:grid; gap:16px; margin-top:28px; }
+  .story-list li{ display:flex; gap:14px; align-items:flex-start; }
+  .story-list .num{ font-family:var(--mono); color:var(--brass); font-size:0.85rem; padding-top:3px; }
+  @media (max-width:900px){
+    .story .wrap{ grid-template-columns:1fr; }
+    .story-badge{ position:static; margin-top:-40px; margin-left:20px; width:fit-content; }
+  }
+
+  /* ============ STATS BAND ============ */
+  .stats-band{ padding:60px 0; background:var(--forest-deep); }
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center; }
+  .stat-item strong{ display:block; font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.2rem); color:var(--brass-light); }
+  .stat-item span{ font-family:var(--mono); font-size:0.78rem; color:rgba(243,238,227,0.68); letter-spacing:.02em; }
+  @media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); gap:34px 20px; } }
+
+  /* ============ VALUES ============ */
+  .values{ padding:clamp(80px,10vw,140px) 0; }
+  .values-head{ max-width:640px; margin-bottom:54px; }
+  .values-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  .value-card{ background:var(--white); padding:34px 28px; display:flex; flex-direction:column; gap:16px; transition:background .3s; }
+  .value-card:hover{ background:var(--paper); }
+  .value-card .vicon{ width:42px; height:42px; }
+  .value-card .vicon svg{ width:100%; height:100%; stroke:var(--brass); }
+  .value-card h3{ font-size:1.15rem; }
+  .value-card p{ font-size:0.94rem; }
+  @media (max-width:900px){ .values-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .values-grid{ grid-template-columns:1fr; } }
+
+  /* ============ TIMELINE ============ */
+  .timeline{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); }
+  .timeline-head{ max-width:640px; margin-bottom:60px; }
+  .tl-rail{ position:relative; }
+  .tl-rail::before{ content:""; position:absolute; left:26px; top:12px; bottom:12px; width:1px; background:var(--line); }
+  .tl-step{ display:grid; grid-template-columns:54px 1fr; gap:26px; padding:26px 0; border-bottom:1px solid var(--line); }
+  .tl-step:first-child{ padding-top:0; }
+  .tl-step .tl-num{
+    width:54px; height:54px; border-radius:50%; background:var(--white); border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.9rem; z-index:2;
+  }
+  .tl-step-body h3{ margin-bottom:8px; }
+  .tl-step-body p{ max-width:62ch; }
+  .tl-step-body span.tl-year{ font-family:var(--mono); font-size:0.75rem; color:var(--brass); display:block; margin-bottom:6px; }
+
+  /* ============ TEAM ============ */
+  .team{ padding:clamp(80px,10vw,140px) 0; }
+  .team-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:54px; flex-wrap:wrap; }
+  .team-head p{ max-width:44ch; }
+  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
+  .team-card{ text-align:left; }
+  .team-photo{ border-radius:4px; overflow:hidden; height:280px; margin-bottom:16px; }
+  .team-photo img{ width:100%; height:100%; object-fit:cover; filter:grayscale(60%); transition:filter .5s, transform .6s var(--ease); }
+  .team-card:hover .team-photo img{ transform:scale(1.05); filter:grayscale(0%); }
+  .team-card h3{ font-size:1.08rem; margin-bottom:4px; }
+  .team-card span{ font-family:var(--mono); font-size:0.78rem; color:var(--brass); }
+  @media (max-width:900px){ .team-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .team-grid{ grid-template-columns:1fr; } }
+
+</style>
+<style>
+  .hero, .page-hero{ position:relative; }
+  .hero-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.12; z-index:0; pointer-events:none; user-select:none; }
+  .hero .wrap, .page-hero .wrap{ position:relative; z-index:1; }
+  .hero + section, .page-hero + section{ margin-top:clamp(40px,6vw,88px); }
+</style>
+
+<style>
+  /* ============ PRELOADER ============ */
+  .preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .6s cubic-bezier(.22,.9,.3,1);
+  }
+  .preloader.hide{ opacity:0; pointer-events:none; }
+  .preloader-inner{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .preloader-logo{ height:32px; width:auto; opacity:.9; animation:preloaderPulse 1.6s ease-in-out infinite; }
+  @keyframes preloaderPulse{ 0%,100%{ opacity:.5; } 50%{ opacity:1; } }
+  .preloader-bar{ width:140px; height:2px; background:rgba(30,42,34,0.14); border-radius:2px; overflow:hidden; }
+  .preloader-bar span{ display:block; height:100%; width:0%; background:#A9832F; border-radius:2px; transition:width .2s linear; }
+  .preloader-tag{ font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:#354438; }
+  @media (prefers-reduced-motion: reduce){ .preloader-logo{ animation:none; } .preloader{ transition:none; } }
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="preloader-inner">
+    <img class="preloader-logo" src="./assets/stackly-logo.webp" alt="">
+    <div class="preloader-bar"><span id="preloaderFill"></span></div>
+    <div class="preloader-tag">Preparing the page</div>
+  </div>
+</div>
+<script>
+(function(){
+  var htmlEl = document.documentElement;
+  var body = document.body;
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  body.style.overflow = 'hidden';
+
+  var fill = document.getElementById('preloaderFill');
+  var start = Date.now();
+  var MIN_MS = 450;
+  var pct = 0;
+  var trickle = setInterval(function(){
+    pct = Math.min(88, pct + Math.random()*12);
+    if(fill) fill.style.width = pct + '%';
+  }, 130);
+
+  function reveal(){
+    clearInterval(trickle);
+    if(fill) fill.style.width = '100%';
+
+    try{
+      var raw = sessionStorage.getItem('stackly_restore_scroll');
+      if(raw){
+        var data = JSON.parse(raw);
+        var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+        if(data && data.path === PATH && !data.view){
+          sessionStorage.removeItem('stackly_restore_scroll');
+          if(typeof data.y === 'number'){
+            var prevBehavior = htmlEl.style.scrollBehavior;
+            htmlEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, data.y);
+            void htmlEl.offsetHeight;
+            htmlEl.style.scrollBehavior = prevBehavior || '';
+          }
+        }
+      }
+    }catch(e){}
+
+    setTimeout(function(){
+      pre.classList.add('hide');
+      body.style.overflow = '';
+      setTimeout(function(){ pre.style.display = 'none'; }, 650);
+    }, 100);
+  }
+
+  function onReady(){
+    var wait = Math.max(0, MIN_MS - (Date.now() - start));
+    setTimeout(reveal, wait);
+  }
+  if(document.readyState === 'complete'){ onReady(); }
+  else{ window.addEventListener('load', onReady); }
+})();
+</script>
+
+<header id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-login">Log in</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-top">
+    <img src="./assets/stackly-logo.webp" alt="Stackly Consulting">
+    <button class="drawer-exit" id="drawerExit" aria-label="Close menu"></button>
+  </div>
+  <nav class="drawer-nav" aria-label="Mobile">
+    <a href="index.html">Home <span>01</span></a>
+    <a href="about.html" class="active">About <span>02</span></a>
+    <a href="services.html">Services <span>03</span></a>
+    <a href="case-studies.html">Case Studies <span>04</span></a>
+    <a href="blog.html">Blogs <span>05</span></a>
+    <a href="contact.html">Contact <span>06</span></a>
+  </nav>
+  <div class="drawer-login">
+    <a href="login.html" class="btn btn-login">Log in</a>
+  </div>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero about-hero">
+  <img class="hero-bg" src="./assets/employee.webp" alt="Stackly Consulting office and team at work">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>About</div>
+      <div class="eyebrow">Who we are</div>
+      <h1><span class="reveal-word"><span>Advisors</span></span> <span class="reveal-word"><span>who've</span></span> <span class="reveal-word"><span>sat</span></span> <span class="reveal-word"><span>on</span></span> <span class="reveal-word"><span><em>your</em></span></span> <span class="reveal-word"><span>side</span></span> <span class="reveal-word"><span>of</span></span> <span class="reveal-word"><span>the</span></span> <span class="reveal-word"><span>table.</span></span></h1>
+      <p class="lead">Stackly Consulting was founded by operators, not career consultants — people who've run P&amp;Ls, launched products, and cleaned up the messes that came after bad advice.</p>
+    </div>
+    <div class="ah-visual">
+      <div class="ah-img ah-1"><img src="./assets/Advisory team reviewing a strategy plan.webp" alt="Stackly Consulting leadership in a working session"></div>
+      <div class="ah-img ah-2"><img src="./assets/team.webp" alt="Advisory team collaborating around a table"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story">
+  <div class="wrap">
+    <div class="story-imgwrap reveal-up">
+      <img src="./assets/employee.webp" alt="Stackly Consulting office and team at work">
+      <div class="story-badge">
+        <strong>14</strong>
+        <span>years advising founders and boards</span>
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="eyebrow">Our story</div>
+      <h2 class="reveal-up">Built out of frustration with advice that didn't survive contact with reality.</h2>
+      <p class="lead reveal-up">We started Stackly Consulting because too many strategy decks were landing on shelves instead of in operating plans. Our work is judged on what changes inside the business, not on the polish of a slide.</p>
+      <ul class="story-list">
+        <li class="reveal-up"><span class="num">01</span><p>Small, senior teams — no army of juniors learning on your budget.</p></li>
+        <li class="reveal-up"><span class="num">02</span><p>Recommendations tested against your operating constraints, not textbook cases.</p></li>
+        <li class="reveal-up"><span class="num">03</span><p>We stay through implementation when you want us to, not just the diagnosis.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAND ============ -->
+<section class="stats-band">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item reveal-up"><strong data-count="180" data-suffix="+">0</strong><span>ENGAGEMENTS DELIVERED</span></div>
+      <div class="stat-item reveal-up"><strong data-count="14" data-suffix=" yrs">0</strong><span>IN OPERATION</span></div>
+      <div class="stat-item reveal-up"><strong data-count="96" data-suffix="%">0</strong><span>CLIENT RETURN RATE</span></div>
+      <div class="stat-item reveal-up"><strong data-count="9" data-suffix="">0</strong><span>SECTORS SERVED</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section class="values">
+  <div class="wrap">
+    <div class="values-head reveal-up">
+      <div class="eyebrow">How we work</div>
+      <h2>Four commitments that shape every engagement.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.6 4.3L18 21l-6-4.3L6 21l1.6-7.7L2 9h7z"/></svg></div>
+        <h3>Candour over comfort</h3>
+        <p>We tell boards what they need to hear, framed so it's usable — not softened into something safe and useless.</p>
+      </div>
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <h3>Speed with discipline</h3>
+        <p>Fast diagnostics, rigorously tested — we don't trade thoroughness for a deadline, or a deadline for thoroughness.</p>
+      </div>
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div>
+        <h3>Plans that ship</h3>
+        <p>Every recommendation comes with an owner, a timeline, and a way to measure whether it actually worked.</p>
+      </div>
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Senior hands, always</h3>
+        <p>The partner who scopes the work is the partner in the room — not handed off after the proposal is signed.</p>
+      </div>
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <h3>Confidentiality first</h3>
+        <p>Sensitive numbers, sensitive politics — handled the way we'd want our own business handled.</p>
+      </div>
+      <div class="value-card reveal-up">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div>
+        <h3>Judged on outcomes</h3>
+        <p>We'd rather be measured on the number that moved than the number of pages in the deck.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="timeline">
+  <div class="wrap">
+    <div class="timeline-head reveal-up">
+      <div class="eyebrow">Milestones</div>
+      <h2>Fourteen years, in brief.</h2>
+    </div>
+    <div class="tl-rail">
+      <div class="tl-step reveal-up">
+        <div class="tl-num">01</div>
+        <div class="tl-step-body"><span class="tl-year">2012</span><h3>Founded in Chennai</h3><p>Started as a two-person advisory practice working with early-stage founders on operating discipline.</p></div>
+      </div>
+      <div class="tl-step reveal-up">
+        <div class="tl-num">02</div>
+        <div class="tl-step-body"><span class="tl-year">2016</span><h3>First enterprise mandates</h3><p>Expanded into strategy and transformation work for mid-market manufacturing and logistics clients.</p></div>
+      </div>
+      <div class="tl-step reveal-up">
+        <div class="tl-num">03</div>
+        <div class="tl-step-body"><span class="tl-year">2019</span><h3>Financial &amp; risk advisory launched</h3><p>Built a dedicated practice for capital structuring, risk modelling, and board-level financial governance.</p></div>
+      </div>
+      <div class="tl-step reveal-up">
+        <div class="tl-num">04</div>
+        <div class="tl-step-body"><span class="tl-year">2022</span><h3>Digital transformation practice</h3><p>Added operations technology and digital transformation advisory as client mandates shifted toward systems.</p></div>
+      </div>
+      <div class="tl-step reveal-up">
+        <div class="tl-num">05</div>
+        <div class="tl-step-body"><span class="tl-year">2026</span><h3>180+ engagements delivered</h3><p>Today, a senior team of 20+ advisors working across strategy, finance, operations, and market entry.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team">
+  <div class="wrap">
+    <div class="team-head">
+      <div>
+        <div class="eyebrow reveal-up">Leadership</div>
+        <h2 class="reveal-up">The people you'll actually work with.</h2>
+      </div>
+      <p class="reveal-up">Every engagement is led by a partner with 12+ years of direct operating or advisory experience in the relevant sector.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b1.webp" alt="Portrait of Arun Vedantham"></div>
+        <h3>Arun Vedantham</h3><span>Founder &amp; Managing Partner</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b3.webp" alt="Portrait of Meera Kapoor"></div>
+        <h3>Meera Kapoor</h3><span>Partner, Financial &amp; Risk Advisory</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b2.webp" alt="Portrait of Thomas Okafor"></div>
+        <h3>Thomas Okafor</h3><span>Partner, Operations Excellence</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b4.webp" alt="Portrait of Lena Sorensen"></div>
+        <h3>Lena Sorensen</h3><span>Partner, Digital Transformation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section style="padding: clamp(60px,8vw,100px) 0;">
+  <div class="cta-band reveal-up">
+    <h2>Want the team behind these numbers working on your problem?</h2>
+    <p>A first conversation is free, unscripted, and usually enough for both of us to tell if there's a fit.</p>
+    <div class="btns">
+      <a href="./404.html" class="btn btn-brass">Book a consultation</a>
+      <a href="./404.html" class="btn btn-outline-cream">See our work</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" aria-label="Stackly Consulting home"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+        <p>Stackly Consulting is an independent advisory firm working with founders and boards on strategy, operations, and the transformation decisions that don't wait.</p>
+        <div class="social-row">
+          <a href="404.html" aria-label="LinkedIn" class="sm-linkedin">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M100.3 448l-92.9 0 0-299.1 92.9 0 0 299.1zM53.8 108.1C24.1 108.1 0 83.5 0 53.8 0 39.5 5.7 25.9 15.8 15.8s23.8-15.8 38-15.8 27.9 5.7 38 15.8 15.8 23.8 15.8 38c0 29.7-24.1 54.3-53.8 54.3zM447.9 448l-92.7 0 0-145.6c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7l0 148.1-92.8 0 0-299.1 89.1 0 0 40.8 1.3 0c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3l0 164.3-.1 0z"/></svg>
+          </a>
+          <a href="404.html" aria-label="X (Twitter)" class="sm-x">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/></svg>
+          </a>
+          <a href="404.html" aria-label="Instagram" class="sm-instagram">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M224.3 141a115 115 0 1 0 -.6 230 115 115 0 1 0 .6-230zm-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1 -.6-149.2zm93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1 -53.6 0zm129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+          </a>
+          <a href="404.html" aria-label="YouTube" class="sm-youtube">
+            <svg viewBox="0 0 576 512"><path fill="currentColor" d="M549.7 124.1C543.5 100.4 524.9 81.8 501.4 75.5 458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5C51.2 81.8 32.7 100.4 26.4 124.1 15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8 42.6 11.5 213.4 11.5 213.4 11.5s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6l0-162.4 142.7 81.2-142.7 81.2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="case-studies.html">Case studies</a></li>
+          <li><a href="blog.html">Blogs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="./404.html">Strategy &amp; growth</a></li>
+          <li><a href="./404.html">Financial &amp; risk advisory</a></li>
+          <li><a href="./404.html">Operations excellence</a></li>
+          <li><a href="./404.html">Market entry &amp; expansion</a></li>
+          <li><a href="./404.html">Digital transformation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-addr">
+        <h4>Address</h4>
+        <address>MMR Complex, Periyakollappatty,<br>Chinna Thirupathi, Salem,<br>Tamil Nadu 636008</address>
+        <a href="./404.html">hello@stacklyconsulting.com</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Stackly Consulting. All rights reserved.</p>
+      <div class="legal">
+        <a href="404.html">Privacy policy</a>
+        <a href="404.html">Terms &amp; conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  // ---- header scroll shadow ----
+  var header = document.getElementById('siteHeader');
+  if(header){
+    window.addEventListener('scroll', function(){
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+  }
+
+  // ---- mobile drawer ----
+  var burger = document.getElementById('hamburgerBtn');
+  var drawer = document.getElementById('mobileDrawer');
+  var scrim  = document.getElementById('scrim');
+  var exitBtn = document.getElementById('drawerExit');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    burger.classList.add('active');
+    scrim.classList.add('show');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    burger.classList.remove('active');
+    scrim.classList.remove('show');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  if(burger){
+    burger.addEventListener('click', function(){
+      drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    exitBtn.addEventListener('click', closeDrawer);
+    scrim.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+  }
+
+  // ---- FAQ accordion (if present) ----
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){ o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ---- GSAP ----
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // breadcrumb reveals first, then eyebrow, then the heading
+    gsap.fromTo('.page-hero .breadcrumb',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.1 }
+    );
+    gsap.fromTo('.page-hero .eyebrow',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.32 }
+    );
+    gsap.to('.page-hero .reveal-word span, .hero h1 .reveal-word span', {
+      y: 0, duration: 0.9, ease: 'power4.out', stagger: 0.06, delay: 0.5
+    });
+    gsap.fromTo('.page-hero .lead, .page-hero .hero-ctas',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.1, delay: 0.85 }
+    );
+    gsap.fromTo('.hero-copy .lead, .hero-ctas, .hero-proof',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12, delay: 0.7 }
+    );
+    gsap.fromTo('.hv-img, .hv-card, .hv-pin',
+      { opacity: 0, scale: 0.94 },
+      { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', stagger: 0.15, delay: 0.4 }
+    );
+
+    // generic reveal-up on scroll
+    gsap.utils.toArray('.reveal-up').forEach(function(el){
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    // stat counters
+    gsap.utils.toArray('[data-count]').forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var obj = { val: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 90%', once: true,
+        onEnter: function(){
+          gsap.to(obj, {
+            val: target, duration: 1.6, ease: 'power1.out',
+            onUpdate: function(){ el.textContent = Math.round(obj.val) + suffix; }
+          });
+        }
+      });
+    });
+
+  } else {
+    document.querySelectorAll('.reveal-up').forEach(function(el){ el.style.opacity = 1; el.style.transform = 'none'; });
+    document.querySelectorAll('.reveal-word span').forEach(function(el){ el.style.transform = 'translateY(0)'; });
+  }
+})();
+
+</script>
+<script>
+(function(){
+  var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+  var ticking = false;
+  function saveState(){
+    try{ sessionStorage.setItem('stackly_last_position', JSON.stringify({ path: PATH, y: window.scrollY })); }catch(e){}
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ saveState(); ticking = false; }); }
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('beforeunload', saveState);
+  saveState();
+})();
+</script>
+</body>
+</html>

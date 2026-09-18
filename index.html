@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly Consulting — Strategy, Growth &amp; Advisory</title>
+<meta name="description" content="Stackly Consulting partners with ambitious organizations on strategy, operations, and transformation that holds up under real conditions.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --cream:        #F3EEE3;
+    --paper:        #EAE2CE;
+    --ink:          #1E2A22;
+    --ink-soft:     #354438;
+    --brass:        #A9832F;
+    --brass-light:  #C9A24E;
+    --forest:       #35503B;
+    --forest-deep:  #223026;
+    --white:        #FFFFFF;
+    --line:         rgba(30,42,34,0.14);
+
+    --serif: "Newsreader", Georgia, serif;
+    --sans:  "Manrope", -apple-system, sans-serif;
+    --mono:  "IBM Plex Mono", monospace;
+
+    --maxw: 1800px;
+    --pad:  clamp(20px, 3vw, 56px);
+
+    --ease: cubic-bezier(.22,.9,.3,1);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:500; margin:0; color:var(--ink); letter-spacing:-0.01em; }
+  h2{ font-size:clamp(2rem, 3.4vw, 3rem); line-height:1.12; }
+  h3{ font-size:1.4rem; line-height:1.3; }
+  p{ margin:0; color:var(--ink-soft); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--brass);
+    letter-spacing:0.02em; margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--brass); display:inline-block; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:14px 28px; border-radius:3px; font-weight:600; font-size:0.95rem;
+    border:1px solid transparent; transition:transform .35s var(--ease), background .3s, color .3s, border-color .3s;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--ink); color:var(--cream); }
+  .btn-primary:hover{ background:var(--forest); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--cream); transform:translateY(-2px); }
+  .btn-brass{ background:var(--brass); color:var(--ink); }
+  .btn-brass:hover{ background:var(--brass-light); transform:translateY(-2px); }
+  .btn-outline-cream{ background:transparent; color:var(--cream); border-color:rgba(243,238,227,.5); }
+  .btn-outline-cream:hover{ background:var(--cream); color:var(--ink); }
+  .btn-login{ background:var(--forest); color:var(--cream); }
+  .btn-login:hover{ background:var(--forest-deep); transform:translateY(-2px); }
+
+  section{ position:relative; }
+
+  /* ============ HEADER ============ */
+  header{
+    position:sticky; top:0; z-index:200;
+    background:rgba(243,238,227,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s;
+  }
+  header.scrolled{ box-shadow:0 8px 24px rgba(30,42,34,0.08); }
+  .header-inner{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    gap:24px; padding-top:14px; padding-bottom:14px;
+  }
+  .logo img{ height:40px; width:auto; }
+  nav.main-nav{ justify-self:center; }
+  nav.main-nav ul{ display:flex; align-items:center; gap:clamp(18px,2.2vw,34px); }
+  nav.main-nav a{
+    font-size:0.95rem; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0; transition:color .25s;
+  }
+  nav.main-nav a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+    background:var(--brass); transition:right .35s var(--ease);
+  }
+  nav.main-nav a:hover, nav.main-nav a.active{ color:var(--ink); }
+  nav.main-nav a:hover::after, nav.main-nav a.active::after{ right:0; }
+  .header-actions{ justify-self:end; display:flex; align-items:center; gap:16px; }
+  .header-actions .btn-login{ padding:11px 24px; }
+
+  .hamburger{
+    display:none; flex-direction:column; justify-content:center; align-items:center;
+    width:44px; height:44px; border:1px solid var(--line); border-radius:3px; background:transparent;
+    gap:5px;
+  }
+  .hamburger span{ width:20px; height:2px; background:var(--ink); display:block; transition:transform .3s var(--ease), opacity .3s; }
+
+  .mobile-drawer{
+    position:fixed; inset:0 0 0 auto; width:min(360px,86vw); height:100vh;
+    background:var(--ink); color:var(--cream); z-index:400;
+    transform:translateX(100%); transition:transform .45s var(--ease);
+    display:flex; flex-direction:column; padding:24px;
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{ transform:translateX(0); }
+  .drawer-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; }
+  .drawer-top img{ height:30px; filter:brightness(0) invert(1); }
+  .drawer-exit{
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(243,238,227,.3);
+    background:transparent; color:var(--cream); position:relative; flex-shrink:0;
+  }
+  .drawer-exit::before, .drawer-exit::after{
+    content:""; position:absolute; left:50%; top:50%; width:16px; height:2px; background:var(--cream);
+  }
+  .drawer-exit::before{ transform:translate(-50%,-50%) rotate(45deg); }
+  .drawer-exit::after{ transform:translate(-50%,-50%) rotate(-45deg); }
+
+  .drawer-nav{ display:flex; flex-direction:column; gap:4px; margin-bottom:auto; }
+  .drawer-nav a{
+    font-family:var(--serif); font-size:1.5rem; padding:14px 4px; border-bottom:1px solid rgba(243,238,227,.12);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .drawer-nav a span{ font-family:var(--mono); font-size:0.75rem; color:var(--brass-light); }
+  .drawer-login{ margin-top:28px; }
+  .drawer-login .btn{ width:100%; }
+  .scrim{
+    position:fixed; inset:0; background:rgba(30,42,34,.5); z-index:390;
+    opacity:0; pointer-events:none; transition:opacity .4s;
+  }
+  .scrim.show{ opacity:1; pointer-events:auto; }
+
+  @media (max-width:900px){
+    nav.main-nav, .header-actions .btn-login{ display:none; }
+    .hamburger{ display:flex; }
+    .header-inner{ grid-template-columns:auto auto; justify-content:space-between; }
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:clamp(56px,9vw,110px) 0 clamp(60px,8vw,100px);
+    background:
+      radial-gradient(ellipse 620px 420px at 88% -8%, rgba(169,131,47,0.16), transparent 60%),
+      var(--cream);
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(30px,5vw,60px); align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.5rem, 5vw, 4.1rem); line-height:1.05; margin-bottom:22px;
+  }
+  .hero h1 .reveal-word{ display:inline-block; overflow:hidden; vertical-align:top; }
+  .hero h1 .reveal-word span{ display:inline-block; transform:translateY(115%); }
+  .hero h1 em{ font-style:italic; color:var(--forest); }
+  .hero p.lead{ font-size:1.13rem; max-width:46ch; margin-bottom:34px; }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:40px; }
+  .hero-proof{ display:flex; gap:34px; flex-wrap:wrap; }
+  .hero-proof div{ border-left:2px solid var(--brass); padding-left:14px; }
+  .hero-proof strong{ display:block; font-family:var(--serif); font-size:1.7rem; color:var(--ink); }
+  .hero-proof span{ font-size:0.82rem; color:var(--ink-soft); }
+
+  .hero-visual{ position:relative; height:clamp(380px,44vw,520px); }
+  .hv-img{ position:absolute; border-radius:4px; overflow:hidden; box-shadow:0 30px 60px -20px rgba(30,42,34,0.35); }
+  .hv-img img{ width:100%; height:100%; object-fit:cover; }
+  .hv-1{ width:64%; height:72%; top:0; left:0; }
+  .hv-2{ width:46%; height:46%; bottom:0; right:0; border:6px solid var(--cream); }
+  .hv-card{
+    position:absolute; top:58%; left:-8%; width:210px; background:var(--white);
+    border-radius:3px; padding:18px 20px; box-shadow:0 20px 40px -14px rgba(30,42,34,0.28);
+    transform:rotate(-4deg);
+  }
+  .hv-card .tag{ font-family:var(--mono); font-size:0.68rem; color:var(--brass); margin-bottom:6px; display:block; }
+  .hv-card strong{ font-family:var(--serif); font-size:1.6rem; display:block; }
+  .hv-card small{ color:var(--ink-soft); font-size:0.78rem; }
+  .hv-pin{ position:absolute; width:10px; height:10px; border-radius:50%; background:var(--brass); top:56%; left:6%; box-shadow:0 0 0 4px rgba(169,131,47,0.2); }
+
+  @media (max-width:900px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-visual{ margin-top:20px; height:380px; }
+    .hv-card{ left:2%; width:180px; }
+  }
+
+  /* ============ MARQUEE ============ */
+  .trust{ padding:26px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper); }
+  .trust-inner{ display:flex; align-items:center; gap:40px; }
+  .trust-label{ font-family:var(--mono); font-size:0.78rem; color:var(--ink-soft); flex-shrink:0; white-space:nowrap; }
+  .marquee-mask{ flex:1; min-width:0; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .marquee-track{ display:flex; gap:64px; width:max-content; animation:marquee 28s linear infinite; }
+  .marquee-track span{ font-family:var(--serif); font-size:1.25rem; color:var(--ink-soft); white-space:nowrap; opacity:.7; }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  /* ============ ABOUT / PHILOSOPHY ============ */
+  .about{ padding:clamp(80px,10vw,140px) 0; }
+  .about .wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:clamp(30px,6vw,80px); align-items:center; }
+  .about-imgwrap{ position:relative; }
+  .about-imgwrap img{ border-radius:4px; width:100%; height:520px; object-fit:cover; }
+  .about-badge{
+    position:absolute; bottom:-24px; right:-20px; background:var(--ink); color:var(--cream);
+    padding:20px 22px; border-radius:3px; width:160px;
+  }
+  .about-badge strong{ font-family:var(--serif); font-size:2rem; display:block; color:var(--brass-light); }
+  .about-badge span{ font-size:0.8rem; }
+  .about-text p.lead{ font-size:1.2rem; font-family:var(--serif); color:var(--ink); margin-bottom:22px; line-height:1.5; }
+  .about-list{ display:grid; gap:16px; margin-top:28px; }
+  .about-list li{ display:flex; gap:14px; align-items:flex-start; }
+  .about-list .num{ font-family:var(--mono); color:var(--brass); font-size:0.85rem; padding-top:3px; }
+  @media (max-width:900px){
+    .about .wrap{ grid-template-columns:1fr; }
+    .about-imgwrap{ display:none; }
+  }
+
+  /* ============ SERVICES ============ */
+  .services{ padding:clamp(80px,10vw,140px) 0; background:var(--forest-deep); color:var(--cream); }
+  .services h2{ color:var(--cream); }
+  .services p{ color:rgba(243,238,227,0.72); }
+  .services-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:54px; flex-wrap:wrap; }
+  .services-head p{ max-width:44ch; }
+  .service-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(243,238,227,0.14); border:1px solid rgba(243,238,227,0.14); border-radius:4px; overflow:hidden; }
+  .service-card{
+    background:var(--forest-deep); padding:34px 28px; transition:background .35s;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .service-card:hover{ background:#28382C; }
+  .service-card .sicon{ width:42px; height:42px; }
+  .service-card .sicon svg{ width:100%; height:100%; stroke:var(--brass-light); }
+  .service-card h3{ color:var(--cream); font-size:1.2rem; }
+  .service-card p{ font-size:0.94rem; }
+  .service-card .sarrow{ margin-top:auto; font-family:var(--mono); font-size:0.8rem; color:var(--brass-light); opacity:0; transform:translateX(-6px); transition:.3s; }
+  .service-card:hover .sarrow{ opacity:1; transform:translateX(0); }
+  @media (max-width:900px){ .service-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .service-grid{ grid-template-columns:1fr; } }
+
+  /* ============ INDUSTRIES ============ */
+  .industries{ padding:clamp(80px,10vw,140px) 0; }
+  .industries-head{ max-width:640px; margin-bottom:54px; }
+  .industry-scroller{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+  .industry-card{
+    position:relative; height:340px; border-radius:4px; overflow:hidden;
+    display:flex; align-items:flex-end; padding:22px; isolation:isolate;
+  }
+  .industry-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); z-index:-2; }
+  .industry-card::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(180deg, rgba(30,42,34,0) 30%, rgba(30,42,34,.85) 100%);
+  }
+  .industry-card:hover img{ transform:scale(1.08); }
+  .industry-card span{ font-family:var(--serif); font-size:1.15rem; color:var(--cream); line-height:1.25; }
+  @media (max-width:1100px){ .industry-scroller{ grid-template-columns:repeat(3,1fr); } .industry-card{ height:280px; } }
+  @media (max-width:640px){ .industry-scroller{ grid-template-columns:repeat(2,1fr); } .industry-card{ height:220px; } }
+
+  /* ============ PROCESS ============ */
+  .process{ padding:clamp(80px,10vw,140px) 0; }
+  .process-head{ max-width:640px; margin-bottom:60px; }
+  .process-rail{ position:relative; }
+  .process-rail::before{
+    content:""; position:absolute; left:26px; top:12px; bottom:12px; width:1px;
+    background:var(--line);
+  }
+  .p-step{ display:grid; grid-template-columns:54px 1fr; gap:26px; padding:26px 0; border-bottom:1px solid var(--line); }
+  .p-step:first-child{ padding-top:0; }
+  .p-step .p-num{
+    width:54px; height:54px; border-radius:50%; background:var(--cream); border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.95rem; z-index:2;
+  }
+  .p-step-body h3{ margin-bottom:10px; }
+  .p-step-body p{ max-width:62ch; }
+
+  /* ============ WHY US / COMPARISON ============ */
+  .whyus{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); }
+  .whyus-head{ max-width:640px; margin-bottom:50px; }
+  .compare{ width:100%; border-collapse:collapse; background:var(--white); border-radius:4px; overflow:hidden; box-shadow:0 18px 40px -28px rgba(30,42,34,0.3); }
+  .compare th, .compare td{ padding:18px 24px; text-align:left; border-bottom:1px solid var(--line); font-size:0.95rem; }
+  .compare thead th{ font-family:var(--serif); font-size:1.05rem; font-weight:500; background:var(--ink); color:var(--cream); border-bottom:none; }
+  .compare thead th:first-child{ color:rgba(243,238,227,0.6); font-family:var(--sans); font-size:0.8rem; font-weight:600; }
+  .compare tbody tr:last-child td{ border-bottom:none; }
+  .compare tbody td:first-child{ color:var(--ink); font-weight:600; }
+  .compare .yes{ color:var(--forest); font-weight:700; }
+  .compare .no{ color:#B5443B; }
+  .compare td:nth-child(3){ background:rgba(169,131,47,0.06); }
+  @media (max-width:640px){ .compare{ font-size:0.85rem; } .compare th, .compare td{ padding:14px 12px; } }
+  .compare-wrap{ overflow-x:auto; }
+
+  /* ============ CASE STUDIES ============ */
+  .cases{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); }
+  .cases-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:30px; flex-wrap:wrap; }
+  .case-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .case-card{ background:var(--white); border-radius:4px; overflow:hidden; box-shadow:0 18px 40px -24px rgba(30,42,34,0.25); }
+  .case-media{ height:220px; overflow:hidden; }
+  .case-media img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+  .case-card:hover .case-media img{ transform:scale(1.07); }
+  .case-body{ padding:26px; }
+  .case-tag{ font-family:var(--mono); font-size:0.72rem; color:var(--brass); margin-bottom:10px; display:block; }
+  .case-body h3{ margin-bottom:10px; font-size:1.15rem; }
+  .case-stat{ margin-top:16px; display:flex; align-items:baseline; gap:8px; }
+  .case-stat strong{ font-family:var(--serif); font-size:1.7rem; color:var(--forest); }
+  .case-stat span{ font-size:0.82rem; color:var(--ink-soft); }
+  @media (max-width:900px){ .case-grid{ grid-template-columns:1fr; } }
+
+  /* ============ STATS ============ */
+  .stats{ padding:clamp(64px,8vw,100px) 0; background:var(--ink); color:var(--cream); }
+  .stats .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:30px; text-align:center; }
+  .stat-item strong{ font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.2rem); color:var(--brass-light); display:block; }
+  .stat-item span{ font-size:0.86rem; color:rgba(243,238,227,0.68); }
+  @media (max-width:760px){ .stats .wrap{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ============ TEAM ============ */
+  .team{ padding:clamp(80px,10vw,140px) 0; }
+  .team-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:54px; flex-wrap:wrap; }
+  .team-head p{ max-width:44ch; }
+  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
+  .team-card{ }
+  .team-photo{ position:relative; border-radius:4px; overflow:hidden; height:300px; margin-bottom:16px; }
+  .team-photo img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease), filter .5s; filter:grayscale(45%); }
+  .team-card:hover .team-photo img{ transform:scale(1.05); filter:grayscale(0%); }
+  .team-card h3{ font-size:1.08rem; margin-bottom:4px; }
+  .team-card span{ font-family:var(--mono); font-size:0.78rem; color:var(--brass); }
+  @media (max-width:900px){ .team-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .team-grid{ grid-template-columns:1fr; } }
+
+  /* ============ TESTIMONIALS ============ */
+  .testimonials{ padding:clamp(80px,10vw,140px) 0; }
+  .t-track-wrap{
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+  .t-track{
+    display:flex; gap:26px; width:max-content;
+    animation:testimonialScroll 55s linear infinite;
+  }
+  .t-track-wrap:hover .t-track{ animation-play-state:paused; }
+  @keyframes testimonialScroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .t-card{
+    flex:0 0 420px; background:var(--white); border:1px solid var(--line); border-radius:4px;
+    padding:36px; display:flex; flex-direction:column; gap:22px;
+  }
+  .t-card p{ font-family:var(--serif); font-size:1.2rem; color:var(--ink); font-style:italic; line-height:1.5; }
+  .t-person{ display:flex; align-items:center; gap:14px; margin-top:auto; }
+  .t-person img{ width:48px; height:48px; border-radius:50%; object-fit:cover; }
+  .t-person strong{ display:block; font-size:0.94rem; }
+  .t-person span{ font-size:0.8rem; color:var(--ink-soft); }
+  @media (max-width:760px){ .t-card{ flex:0 0 300px; } }
+
+  /* ============ FAQ ============ */
+  .faq{ padding:clamp(80px,10vw,140px) 0; background:var(--forest-deep); color:var(--cream); }
+  .faq .wrap{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:clamp(30px,6vw,70px); }
+  .faq-head h2{ color:var(--cream); }
+  .faq-head p{ color:rgba(243,238,227,0.72); margin-top:14px; max-width:36ch; }
+  .faq-list{ border-top:1px solid rgba(243,238,227,0.18); }
+  .faq-item{ border-bottom:1px solid rgba(243,238,227,0.18); }
+  .faq-q{
+    width:100%; background:none; border:none; color:var(--cream); text-align:left;
+    padding:22px 0; display:flex; justify-content:space-between; align-items:center; gap:20px;
+    font-family:var(--serif); font-size:1.1rem;
+  }
+  .faq-q .plus{ flex-shrink:0; width:22px; height:22px; position:relative; }
+  .faq-q .plus::before, .faq-q .plus::after{ content:""; position:absolute; background:var(--brass-light); top:50%; left:50%; transform:translate(-50%,-50%); }
+  .faq-q .plus::before{ width:14px; height:2px; }
+  .faq-q .plus::after{ width:2px; height:14px; transition:transform .3s var(--ease); }
+  .faq-item.open .plus::after{ transform:translate(-50%,-50%) rotate(90deg) scaleY(0); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
+  .faq-a p{ color:rgba(243,238,227,0.7); padding-bottom:22px; max-width:56ch; }
+  .faq-item.open .faq-a{ max-height:200px; }
+  @media (max-width:800px){ .faq .wrap{ grid-template-columns:1fr; } }
+
+  /* ============ INSIGHTS ============ */
+  .insights{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); }
+  .insight-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .insight-card img{ height:200px; width:100%; object-fit:cover; border-radius:4px; margin-bottom:20px; }
+  .insight-meta{ display:flex; gap:12px; font-family:var(--mono); font-size:0.72rem; color:var(--brass); margin-bottom:10px; }
+  .insight-card h3{ font-size:1.08rem; margin-bottom:10px; }
+  .insight-card p{ font-size:0.92rem; }
+  @media (max-width:900px){ .insight-grid{ grid-template-columns:1fr; } }
+
+  /* ============ OFFICES ============ */
+  .offices{ padding:clamp(80px,10vw,140px) 0; }
+  .offices-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:44px; flex-wrap:wrap; }
+  .offices-head p{ max-width:44ch; }
+  .office-list{ border-top:1px solid var(--line); }
+  .office-row{
+    display:grid; grid-template-columns:1.4fr 1.6fr 1fr 1fr; gap:20px; align-items:center;
+    padding:24px 0; border-bottom:1px solid var(--line);
+  }
+  .office-row .oc-city{ font-family:var(--serif); font-size:1.3rem; }
+  .office-row .oc-label{ font-family:var(--mono); font-size:0.7rem; color:var(--brass); display:block; margin-bottom:4px; }
+  .office-row p{ font-size:0.9rem; }
+  @media (max-width:760px){ .office-row{ grid-template-columns:1fr 1fr; row-gap:6px; } }
+
+  /* ============ NEWSLETTER ============ */
+  .newsletter{ padding:clamp(70px,8vw,110px) 0; background:var(--paper); }
+  .newsletter .wrap{ display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; }
+  .newsletter-copy{ max-width:44ch; }
+  .newsletter-form{ display:flex; gap:12px; flex-wrap:wrap; }
+  .newsletter-form input{
+    padding:14px 18px; border:1px solid var(--ink); border-radius:3px; background:var(--white);
+    font-family:var(--sans); font-size:0.95rem; min-width:260px; color:var(--ink);
+  }
+  .newsletter-form input:focus{ outline:2px solid var(--brass); outline-offset:2px; }
+
+  /* ============ CTA BAND ============ */
+  .cta-band{
+    margin:0 var(--pad); border-radius:6px; padding:clamp(50px,8vw,90px) clamp(24px,6vw,70px);
+    background:linear-gradient(120deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:var(--cream); text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-band h2{ color:var(--cream); max-width:20ch; margin:0 auto 20px; }
+  .cta-band p{ color:rgba(243,238,227,.78); max-width:50ch; margin:0 auto 34px; }
+  .cta-band .btns{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--ink); color:var(--cream); padding:clamp(70px,8vw,100px) 0 0; margin-top:clamp(70px,8vw,110px); }
+  .footer-grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:60px; border-bottom:1px solid rgba(243,238,227,0.12); }
+  .footer-brand img{ height:34px; filter:brightness(0) invert(1); margin-bottom:20px; }
+  .footer-brand p{ color:rgba(243,238,227,0.68); font-size:0.92rem; max-width:34ch; margin-bottom:26px; }
+  .social-row{ display:flex; gap:12px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:50%; border:1px solid rgba(243,238,227,0.28);
+    display:flex; align-items:center; justify-content:center; transition:.3s;
+  }
+  .social-row a svg{ width:18px; height:18px; fill:var(--cream); flex-shrink:0; transition:.3s; }
+  .social-row a:hover{ border-color:transparent; }
+  .social-row a:hover svg{ fill:#fff; }
+  .social-row a.sm-linkedin:hover{ background:#0A66C2; }
+  .social-row a.sm-x:hover{ background:#000000; }
+  .social-row a.sm-instagram:hover{ background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-row a.sm-youtube:hover{ background:#FF0000; }
+  .footer-col h4{ color:var(--brass-light); font-family:var(--sans); font-size:0.85rem; font-weight:700; margin-bottom:20px; }
+  .footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+  .footer-col a{ color:rgba(243,238,227,0.72); font-size:0.92rem; transition:.25s; }
+  .footer-col a:hover{ color:var(--brass-light); padding-left:4px; }
+  .footer-addr address{ font-style:normal; color:rgba(243,238,227,0.72); font-size:0.92rem; line-height:1.7; margin-bottom:18px; }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding:26px 0; flex-wrap:wrap; gap:12px; }
+  .footer-bottom p{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal{ display:flex; gap:22px; }
+  .footer-bottom .legal a{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal a:hover{ color:var(--cream); }
+  @media (max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .footer-grid{ grid-template-columns:1fr; } .footer-bottom{ flex-direction:column; align-items:flex-start; } }
+
+  /* reveal-on-scroll base */
+  .reveal-up{ opacity:0; transform:translateY(28px); }
+</style>
+<style>
+  .hero, .page-hero{ position:relative; }
+  .hero-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.12; z-index:0; pointer-events:none; user-select:none; }
+  .hero .wrap, .page-hero .wrap{ position:relative; z-index:1; }
+  .hero + section, .page-hero + section{ margin-top:clamp(40px,6vw,88px); }
+</style>
+
+<style>
+  /* ============ PRELOADER ============ */
+  .preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .6s cubic-bezier(.22,.9,.3,1);
+  }
+  .preloader.hide{ opacity:0; pointer-events:none; }
+  .preloader-inner{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .preloader-logo{ height:32px; width:auto; opacity:.9; animation:preloaderPulse 1.6s ease-in-out infinite; }
+  @keyframes preloaderPulse{ 0%,100%{ opacity:.5; } 50%{ opacity:1; } }
+  .preloader-bar{ width:140px; height:2px; background:rgba(30,42,34,0.14); border-radius:2px; overflow:hidden; }
+  .preloader-bar span{ display:block; height:100%; width:0%; background:#A9832F; border-radius:2px; transition:width .2s linear; }
+  .preloader-tag{ font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:#354438; }
+  @media (prefers-reduced-motion: reduce){ .preloader-logo{ animation:none; } .preloader{ transition:none; } }
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="preloader-inner">
+    <img class="preloader-logo" src="./assets/stackly-logo.webp" alt="">
+    <div class="preloader-bar"><span id="preloaderFill"></span></div>
+    <div class="preloader-tag">Preparing the page</div>
+  </div>
+</div>
+<script>
+(function(){
+  var htmlEl = document.documentElement;
+  var body = document.body;
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  body.style.overflow = 'hidden';
+
+  var fill = document.getElementById('preloaderFill');
+  var start = Date.now();
+  var MIN_MS = 450;
+  var pct = 0;
+  var trickle = setInterval(function(){
+    pct = Math.min(88, pct + Math.random()*12);
+    if(fill) fill.style.width = pct + '%';
+  }, 130);
+
+  function reveal(){
+    clearInterval(trickle);
+    if(fill) fill.style.width = '100%';
+
+    try{
+      var raw = sessionStorage.getItem('stackly_restore_scroll');
+      if(raw){
+        var data = JSON.parse(raw);
+        var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+        if(data && data.path === PATH && !data.view){
+          sessionStorage.removeItem('stackly_restore_scroll');
+          if(typeof data.y === 'number'){
+            var prevBehavior = htmlEl.style.scrollBehavior;
+            htmlEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, data.y);
+            void htmlEl.offsetHeight;
+            htmlEl.style.scrollBehavior = prevBehavior || '';
+          }
+        }
+      }
+    }catch(e){}
+
+    setTimeout(function(){
+      pre.classList.add('hide');
+      body.style.overflow = '';
+      setTimeout(function(){ pre.style.display = 'none'; }, 650);
+    }, 100);
+  }
+
+  function onReady(){
+    var wait = Math.max(0, MIN_MS - (Date.now() - start));
+    setTimeout(reveal, wait);
+  }
+  if(document.readyState === 'complete'){ onReady(); }
+  else{ window.addEventListener('load', onReady); }
+})();
+</script>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-login">Log in</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-top">
+    <img src="./assets/stackly-logo.webp" alt="Stackly Consulting">
+    <button class="drawer-exit" id="drawerExit" aria-label="Close menu"></button>
+  </div>
+  <nav class="drawer-nav" aria-label="Mobile">
+    <a href="index.html">Home <span>01</span></a>
+    <a href="about.html">About <span>02</span></a>
+    <a href="services.html">Services <span>03</span></a>
+    <a href="case-studies.html">Case Studies <span>04</span></a>
+    <a href="blog.html">Blogs <span>05</span></a>
+    <a href="contact.html">Contact <span>06</span></a>
+  </nav>
+  <div class="drawer-login">
+    <a href="login.html" class="btn btn-login">Log in</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <img class="hero-bg" src="./assets/home bg.webp" alt="Advisory team at work">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Strategy &amp; advisory partners</div>
+      <h1>
+        <span class="reveal-word"><span>Clear</span></span>
+        <span class="reveal-word"><span>thinking</span></span>
+        <span class="reveal-word"><span>for</span></span><br>
+        <span class="reveal-word"><span><em>decisions</em></span></span>
+        <span class="reveal-word"><span>that</span></span>
+        <span class="reveal-word"><span>won't</span></span>
+        <span class="reveal-word"><span>wait.</span></span>
+      </h1>
+      <p class="lead">Stackly Consulting works alongside leadership teams on the strategy, operating model, and transformation decisions that are too consequential to get wrong — and too urgent to sit on.</p>
+      <div class="hero-ctas">
+        <a href="./404.html" class="btn btn-primary">Book a consultation</a>
+        <a href="./404.html" class="btn btn-ghost">See our work</a>
+      </div>
+      <div class="hero-proof">
+        <div><strong>120+</strong><span>Engagements delivered</span></div>
+        <div><strong>18</strong><span>Countries served</span></div>
+        <div><strong>94%</strong><span>Clients who return</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hv-img hv-1"><img src="./assets/Advisory team reviewing a strategy plan.webp" alt="Advisory team reviewing a strategy plan"></div>
+      <div class="hv-img hv-2"><img src="./assets/client meeting.webp" alt="Client meeting in progress"></div>
+      <div class="hv-pin"></div>
+      <div class="hv-card">
+        <span class="tag">Client outcome</span>
+        <strong>+37%</strong>
+        <small>Operating margin, 14 months post-engagement</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST MARQUEE ============ -->
+<div class="trust">
+  <div class="wrap trust-inner">
+    <span class="trust-label">Trusted&nbsp;by&nbsp;teams&nbsp;at</span>
+    <div class="marquee-mask">
+      <div class="marquee-track" id="marqueeTrack">
+        <span>Meridian Group</span><span>Hollow &amp; Finch</span><span>Northfield Capital</span><span>Verdant Foods</span><span>Ashworth Textiles</span><span>Corven Logistics</span>
+        <span>Meridian Group</span><span>Hollow &amp; Finch</span><span>Northfield Capital</span><span>Verdant Foods</span><span>Ashworth Textiles</span><span>Corven Logistics</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-imgwrap reveal-up">
+      <img src="./assets/home bg.webp" alt="Stackly Consulting team at work">
+      <div class="about-badge">
+        <strong>14 yrs</strong>
+        <span>advising founders &amp; boards</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="eyebrow">Who we are</div>
+      <p class="lead reveal-up">We're a small firm on purpose — senior consultants only, no bench of juniors learning on your engagement.</p>
+      <p class="reveal-up">Stackly Consulting was built around a simple complaint we kept hearing from clients of larger firms: brilliant decks, and then nothing changes. So we stay past the recommendation — into the operating rhythm, the org chart, the systems — until the plan is actually how the business runs.</p>
+      <ul class="about-list">
+        <li class="reveal-up"><span class="num">01</span><p>Senior partners lead every engagement, start to finish.</p></li>
+        <li class="reveal-up"><span class="num">02</span><p>We build the implementation plan alongside the strategy — not after it.</p></li>
+        <li class="reveal-up"><span class="num">03</span><p>Fixed-scope pricing, so incentives stay aligned with outcomes.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="services-head">
+      <div>
+        <div class="eyebrow">What we do</div>
+        <h2 class="reveal-up">Six practices, one accountable team</h2>
+      </div>
+      <p class="reveal-up">Most engagements draw from more than one practice at once — we staff around the problem, not the org chart.</p>
+    </div>
+
+    <div class="service-grid">
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3>Strategy &amp; growth</h3>
+        <p>Market position, portfolio choices, and the growth plan behind next year's board deck.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 15l4-5 3 3 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Financial &amp; risk advisory</h3>
+        <p>Capital structure, forecasting discipline, and risk frameworks investors trust.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <h3>Operations excellence</h3>
+        <p>Process redesign and cost structure work that survives contact with Monday morning.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 010 18 13 13 0 010-18z"/></svg></div>
+        <h3>Market entry &amp; expansion</h3>
+        <p>Go-to-market plans and on-the-ground diligence for new geographies and categories.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z"/></svg></div>
+        <h3>Digital transformation</h3>
+        <p>Technology roadmaps and change programs built around adoption, not just rollout.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+      <a href="./404.html" class="service-card reveal-up">
+        <div class="sicon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 20c.6-3.6 3-5.6 5.5-5.6S13 16.4 13.5 20M14.5 20c.4-2.6 1.9-4.2 3.6-4.2s3.2 1.6 3.6 4.2" stroke-linecap="round"/></svg></div>
+        <h3>Change &amp; leadership</h3>
+        <p>Org design and leadership coaching so the plan survives its own executive turnover.</p>
+        <span class="sarrow">Read more →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section class="industries" id="industries">
+  <div class="wrap">
+    <div class="industries-head">
+      <div class="eyebrow">Where we work</div>
+      <h2 class="reveal-up">Sector depth, not generalist guessing</h2>
+      <p class="reveal-up" style="margin-top:14px;">Every engagement is staffed with someone who has sat inside that industry before — not just studied it from a deck.</p>
+    </div>
+    <div class="industry-scroller">
+      <a href="./404.html" class="industry-card reveal-up">
+        <img src="./assets/a1.webp" alt="Retail storefront">
+        <span>Retail &amp; consumer goods</span>
+      </a>
+      <a href="./404.html" class="industry-card reveal-up">
+        <img src="./assets/a2.webp" alt="Financial services trading floor">
+        <span>Financial services</span>
+      </a>
+      <a href="./404.html" class="industry-card reveal-up">
+        <img src="./assets/a3.webp" alt="Logistics warehouse and shipping containers">
+        <span>Logistics &amp; supply chain</span>
+      </a>
+      <a href="./404.html" class="industry-card reveal-up">
+        <img src="./assets/a4.webp" alt="Healthcare and life sciences lab">
+        <span>Healthcare &amp; life sciences</span>
+      </a>
+      <a href="./404.html" class="industry-card reveal-up">
+        <img src="./assets/a5.webp" alt="Manufacturing plant floor">
+        <span>Manufacturing</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-head">
+      <div class="eyebrow">How we work</div>
+      <h2 class="reveal-up">A four-stage engagement, every time</h2>
+    </div>
+    <div class="process-rail">
+      <div class="p-step">
+        <div class="p-num">01</div>
+        <div class="p-step-body reveal-up">
+          <h3>Diagnose</h3><p>Two to three weeks embedded with your team — interviews, data pulls, and a candid read of where things actually stand.</p>
+        </div>
+      </div>
+      <div class="p-step">
+        <div class="p-num">02</div>
+        <div class="p-step-body reveal-up">
+          <h3>Design</h3><p>We build two or three real options, with trade-offs made explicit, and pressure-test them with your leadership.</p>
+        </div>
+      </div>
+      <div class="p-step">
+        <div class="p-num">03</div>
+        <div class="p-step-body reveal-up">
+          <h3>Deliver</h3><p>A sequenced implementation plan with named owners, not a slide that says "workstream leads TBD."</p>
+        </div>
+      </div>
+      <div class="p-step">
+        <div class="p-num">04</div>
+        <div class="p-step-body reveal-up">
+          <h3>Sustain</h3><p>Quarterly check-ins for a year after delivery, so the change outlasts the engagement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="whyus" id="whyus">
+  <div class="wrap">
+    <div class="whyus-head">
+      <div class="eyebrow">Why Stackly</div>
+      <h2 class="reveal-up">A different shape of firm, on purpose</h2>
+    </div>
+    <div class="compare-wrap reveal-up">
+      <table class="compare">
+        <thead>
+          <tr><th>What you get</th><th>Large firms</th><th>Stackly Consulting</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Who leads the work</td><td>Rotating junior teams</td><td class="yes">Senior partner, start to finish</td></tr>
+          <tr><td>Pricing model</td><td>Open-ended hourly billing</td><td class="yes">Fixed scope, agreed upfront</td></tr>
+          <tr><td>After the recommendation</td><td class="no">Deck delivered, team moves on</td><td class="yes">Implementation support included</td></tr>
+          <tr><td>Industry staffing</td><td>Generalist consultants</td><td class="yes">Sector-specific experience</td></tr>
+          <tr><td>Engagement length</td><td>Extended, sometimes open-ended</td><td class="yes">Scoped, with a defined end date</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE STUDIES ============ -->
+<section class="cases" id="cases">
+  <div class="wrap">
+    <div class="cases-head">
+      <div>
+        <div class="eyebrow">Selected work</div>
+        <h2 class="reveal-up">Results our clients point to</h2>
+      </div>
+      <a href="./404.html" class="btn btn-ghost">All case studies</a>
+    </div>
+    <div class="case-grid">
+      <div class="case-card reveal-up">
+        <div class="case-media"><img src="./assets/a6.webp" alt="Logistics operations warehouse"></div>
+        <div class="case-body">
+          <span class="case-tag">Operations · Logistics</span>
+          <h3>Corven Logistics cut fulfillment cost per order by nearly a third</h3>
+          <div class="case-stat"><strong>31%</strong><span>cost per order, 9 months</span></div>
+        </div>
+      </div>
+      <div class="case-card reveal-up">
+        <div class="case-media"><img src="./assets/a7.webp" alt="Financial planning discussion"></div>
+        <div class="case-body">
+          <span class="case-tag">Finance · Capital</span>
+          <h3>Northfield Capital restructured ahead of a Series C</h3>
+          <div class="case-stat"><strong>$42M</strong><span>raised within 5 months</span></div>
+        </div>
+      </div>
+      <div class="case-card reveal-up">
+        <div class="case-media"><img src="./assets/a8.webp" alt="Retail expansion planning">
+        </div>
+        <div class="case-body">
+          <span class="case-tag">Growth · Market entry</span>
+          <h3>Verdant Foods entered three new markets in one fiscal year</h3>
+          <div class="case-stat"><strong>3</strong><span>new markets, on schedule</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stat-item"><strong data-count="120">0</strong><span>Engagements delivered</span></div>
+    <div class="stat-item"><strong data-count="18">0</strong><span>Countries served</span></div>
+    <div class="stat-item"><strong data-count="94" data-suffix="%">0</strong><span>Client return rate</span></div>
+    <div class="stat-item"><strong data-count="14">0</strong><span>Years in practice</span></div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="team-head">
+      <div>
+        <div class="eyebrow">Leadership</div>
+        <h2 class="reveal-up">The partners you'll actually work with</h2>
+      </div>
+      <p class="reveal-up">No account handoffs — the partner in your first meeting is the partner on your closing call.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b1.webp" alt="Portrait of Arun Vedantham"></div>
+        <h3>Arun Vedantham</h3>
+        <span>Managing partner, strategy</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b3.webp" alt="Portrait of Meera Kapoor"></div>
+        <h3>Meera Kapoor</h3>
+        <span>Partner, financial advisory</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b2.webp" alt="Portrait of Thomas Okafor"></div>
+        <h3>Thomas Okafor</h3>
+        <span>Partner, operations</span>
+      </div>
+      <div class="team-card reveal-up">
+        <div class="team-photo"><img src="./assets/b4.webp" alt="Portrait of Lena Sorensen"></div>
+        <h3>Lena Sorensen</h3>
+        <span>Partner, digital transformation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="eyebrow">Client voices</div>
+    <h2 class="reveal-up" style="margin-bottom:44px;">What it's like to work with us</h2>
+    <div class="t-track-wrap">
+      <div class="t-track" id="tTrack">
+        <div class="t-card">
+          <p>"They didn't hand us a strategy and disappear. Stackly stayed until the new operating model was actually how we ran meetings."</p>
+          <div class="t-person">
+            <img src="./assets/divya.webp" alt="Portrait of Renu Adiga">
+            <div><strong>Renu Adiga</strong><span>COO, Verdant Foods</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <p>"The diagnostic phase alone was worth the engagement — it surfaced three problems our own team had stopped seeing."</p>
+          <div class="t-person">
+            <img src="./assets/i6.webp" alt="Portrait of Daniel Ferro">
+            <div><strong>Daniel Ferro</strong><span>Founder, Corven Logistics</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <p>"Fixed scope, senior team, no surprises on the invoice. Rare in this industry, and it changed how we brief every advisor since."</p>
+          <div class="t-person">
+            <img src="./assets/a71.webp" alt="Portrait of Priya Menon">
+            <div><strong>Priya Menon</strong><span>CFO, Northfield Capital</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <p>"We'd sat through plenty of strategy offsites that went nowhere. This was the first one where the org chart actually changed by Friday."</p>
+          <div class="t-person">
+            <img src="./assets/i8.webp" alt="Portrait of Marcus Whitfield">
+            <div><strong>Marcus Whitfield</strong><span>CEO, Ashworth Textiles</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <p>"Every other advisor we'd used billed by the hour and stretched the engagement. Stackly quoted a scope and stuck to it."</p>
+          <div class="t-person">
+            <img src="./assets/a.webp" alt="Portrait of Isla Bergström">
+            <div><strong>Isla Bergström</strong><span>Head of Strategy, Meridian Group</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <p>"The quarterly check-ins after delivery were the real difference. Most firms disappear the day the invoice clears — Stackly didn't."</p>
+          <div class="t-person">
+            <img src="./assets/b1.webp" alt="Portrait of Owen Hollis">
+            <div><strong>Owen Hollis</strong><span>Managing Director, Hollow &amp; Finch</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"They didn't hand us a strategy and disappear. Stackly stayed until the new operating model was actually how we ran meetings."</p>
+          <div class="t-person">
+            <img src="./assets/divya.webp" alt="">
+            <div><strong>Renu Adiga</strong><span>COO, Verdant Foods</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"The diagnostic phase alone was worth the engagement — it surfaced three problems our own team had stopped seeing."</p>
+          <div class="t-person">
+            <img src="./assets/i6.webp" alt="">
+            <div><strong>Daniel Ferro</strong><span>Founder, Corven Logistics</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"Fixed scope, senior team, no surprises on the invoice. Rare in this industry, and it changed how we brief every advisor since."</p>
+          <div class="t-person">
+            <img src="./assets/a71.webp" alt="">
+            <div><strong>Priya Menon</strong><span>CFO, Northfield Capital</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"We'd sat through plenty of strategy offsites that went nowhere. This was the first one where the org chart actually changed by Friday."</p>
+          <div class="t-person">
+            <img src="./assets/i8.webp" alt="">
+            <div><strong>Marcus Whitfield</strong><span>CEO, Ashworth Textiles</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"Every other advisor we'd used billed by the hour and stretched the engagement. Stackly quoted a scope and stuck to it."</p>
+          <div class="t-person">
+            <img src="./assets/a.webp" alt="">
+            <div><strong>Isla Bergström</strong><span>Head of Strategy, Meridian Group</span></div>
+          </div>
+        </div>
+        <div class="t-card" aria-hidden="true">
+          <p>"The quarterly check-ins after delivery were the real difference. Most firms disappear the day the invoice clears — Stackly didn't."</p>
+          <div class="t-person">
+            <img src="./assets/b1.webp" alt="">
+            <div><strong>Owen Hollis</strong><span>Managing Director, Hollow &amp; Finch</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <div class="eyebrow">Questions</div>
+      <h2 class="reveal-up">Before you book a call</h2>
+      <p>If it's not here, it's a fair question for the first conversation — ask us directly.</p>
+    </div>
+    <div class="faq-list reveal-up">
+      <div class="faq-item open">
+        <button class="faq-q"><span>How long does a typical engagement run?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Most engagements run 10 to 16 weeks across the diagnose-and-design phases, with a lighter quarterly cadence afterward through the sustain phase.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Do you work with early-stage companies?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Yes — about a third of our current roster is pre-Series B. We scope engagements to match the size of the decision, not a minimum firm size.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>How is pricing structured?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Fixed scope, agreed before we start. No hourly billing, no surprise change orders mid-engagement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can you work alongside our internal team?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>That's the default model — we embed with your team rather than working in isolation and handing over a report at the end.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Which industries do you not cover?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>We're selective about deep-tech R&amp;D and regulated pharma trials — outside those, reach out and we'll tell you honestly if we're a fit.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIGHTS ============ -->
+<section class="insights" id="insights">
+  <div class="wrap">
+    <div class="eyebrow">From the firm</div>
+    <h2 class="reveal-up" style="margin-bottom:44px;">Recent thinking</h2>
+    <div class="insight-grid">
+      <a href="./404.html" class="insight-card reveal-up">
+        <img src="./assets/c1.webp" alt="Boardroom strategy meeting">
+        <div class="insight-meta"><span>Strategy</span><span>·</span><span>6 min read</span></div>
+        <h3>Why most restructuring plans fail in the first quarter</h3>
+        <p>The gap is rarely the plan itself — it's what happens the week after the town hall.</p>
+      </a>
+      <a href="./404.html" class="insight-card reveal-up">
+        <img src="./assets/c2.webp" alt="Team analyzing financial charts">
+        <div class="insight-meta"><span>Finance</span><span>·</span><span>4 min read</span></div>
+        <h3>The forecast discipline investors actually check for</h3>
+        <p>It isn't the accuracy of last quarter's number — it's how fast you explained the miss.</p>
+      </a>
+      <a href="./404.html" class="insight-card reveal-up">
+        <img src="./assets/Advisory team reviewing a strategy plan.webp" alt="Team discussing market expansion">
+        <div class="insight-meta"><span>Growth</span><span>·</span><span>5 min read</span></div>
+        <h3>A market-entry checklist we wish more founders used</h3>
+        <p>Three diligence questions that would have changed how two of our clients expanded.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFICES ============ -->
+<section class="offices" id="offices">
+  <div class="wrap">
+    <div class="offices-head">
+      <div>
+        <div class="eyebrow">Where to find us</div>
+        <h2 class="reveal-up">Four offices, one accountable team</h2>
+      </div>
+      <a href="./404.html" class="btn btn-ghost">Get directions</a>
+    </div>
+    <div class="office-list reveal-up">
+      <div class="office-row">
+        <div class="oc-city">Salem, India</div>
+        <p>MMR Complex, Periyakollappatty, Chinna Thirupathi, Tamil Nadu 636008</p>
+        <div><span class="oc-label">Time zone</span><p>IST, UTC+5:30</p></div>
+        <div><span class="oc-label">Practice lead</span><p>Arun Vedantham</p></div>
+      </div>
+      <div class="office-row">
+        <div class="oc-city">Singapore</div>
+        <p>Raffles Place, Central Business District</p>
+        <div><span class="oc-label">Time zone</span><p>SGT, UTC+8</p></div>
+        <div><span class="oc-label">Practice lead</span><p>Lena Sorensen</p></div>
+      </div>
+      <div class="office-row">
+        <div class="oc-city">London, UK</div>
+        <p>Fenchurch Street, City of London</p>
+        <div><span class="oc-label">Time zone</span><p>GMT, UTC+0</p></div>
+        <div><span class="oc-label">Practice lead</span><p>Meera Kapoor</p></div>
+      </div>
+      <div class="office-row">
+        <div class="oc-city">Nairobi, Kenya</div>
+        <p>Westlands Business District</p>
+        <div><span class="oc-label">Time zone</span><p>EAT, UTC+3</p></div>
+        <div><span class="oc-label">Practice lead</span><p>Thomas Okafor</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter">
+  <div class="wrap">
+    <div class="newsletter-copy">
+      <div class="eyebrow">Stay informed</div>
+      <h2 class="reveal-up">Monthly notes on strategy and operations</h2>
+      <p class="reveal-up" style="margin-top:12px;">One short email a month — a case note, a framework, nothing promotional.</p>
+    </div>
+    <form class="newsletter-form reveal-up" onsubmit="window.location.href='404.html'; return false;">
+      <input type="email" id="newsletterEmail" placeholder="you@company.com" aria-label="Email address" required>
+      <button type="submit" class="btn btn-brass">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section>
+  <div class="cta-band reveal-up">
+    <h2>Ready to talk through what's actually going on?</h2>
+    <p>A first conversation is free, unscripted, and usually enough for both of us to tell if there's a fit.</p>
+    <div class="btns">
+      <a href="./404.html" class="btn btn-brass">Book a consultation</a>
+      <a href="./404.html" class="btn btn-outline-cream">See our work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" aria-label="Stackly Consulting home"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+        <p>Stackly Consulting is an independent advisory firm working with founders and boards on strategy, operations, and the transformation decisions that don't wait.</p>
+        <div class="social-row">
+          <a href="404.html" aria-label="LinkedIn" class="sm-linkedin">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M100.3 448l-92.9 0 0-299.1 92.9 0 0 299.1zM53.8 108.1C24.1 108.1 0 83.5 0 53.8 0 39.5 5.7 25.9 15.8 15.8s23.8-15.8 38-15.8 27.9 5.7 38 15.8 15.8 23.8 15.8 38c0 29.7-24.1 54.3-53.8 54.3zM447.9 448l-92.7 0 0-145.6c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7l0 148.1-92.8 0 0-299.1 89.1 0 0 40.8 1.3 0c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3l0 164.3-.1 0z"/></svg>
+          </a>
+          <a href="404.html" aria-label="X (Twitter)" class="sm-x">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/></svg>
+          </a>
+          <a href="404.html" aria-label="Instagram" class="sm-instagram">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M224.3 141a115 115 0 1 0 -.6 230 115 115 0 1 0 .6-230zm-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1 -.6-149.2zm93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1 -53.6 0zm129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+          </a>
+          <a href="404.html" aria-label="YouTube" class="sm-youtube">
+            <svg viewBox="0 0 576 512"><path fill="currentColor" d="M549.7 124.1C543.5 100.4 524.9 81.8 501.4 75.5 458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5C51.2 81.8 32.7 100.4 26.4 124.1 15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8 42.6 11.5 213.4 11.5 213.4 11.5s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6l0-162.4 142.7 81.2-142.7 81.2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="case-studies.html">Case studies</a></li>
+          <li><a href="blog.html">Blogs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="./404.html">Strategy &amp; growth</a></li>
+          <li><a href="./404.html">Financial &amp; risk advisory</a></li>
+          <li><a href="./404.html">Operations excellence</a></li>
+          <li><a href="./404.html">Market entry &amp; expansion</a></li>
+          <li><a href="./404.html">Digital transformation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-addr">
+        <h4>Address</h4>
+        <address>MMR Complex, Periyakollappatty,<br>Chinna Thirupathi, Salem,<br>Tamil Nadu 636008</address>
+        <a href="./404.html">hello@stacklyconsulting.com</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Stackly Consulting. All rights reserved.</p>
+      <div class="legal">
+        <a href="404.html">Privacy policy</a>
+        <a href="404.html">Terms &amp; conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  // ---- header scroll shadow ----
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ---- mobile drawer ----
+  var burger = document.getElementById('hamburgerBtn');
+  var drawer = document.getElementById('mobileDrawer');
+  var scrim  = document.getElementById('scrim');
+  var exitBtn = document.getElementById('drawerExit');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('show');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('show');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openDrawer);
+  exitBtn.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+
+  // ---- FAQ accordion ----
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){ o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ---- GSAP ----
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // hero word reveal
+    gsap.to('.hero h1 .reveal-word span', {
+      y: 0, duration: 0.9, ease: 'power4.out', stagger: 0.06, delay: 0.2
+    });
+    gsap.fromTo('.hero-copy .lead, .hero-ctas, .hero-proof',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12, delay: 0.7 }
+    );
+    gsap.fromTo('.hv-img, .hv-card, .hv-pin',
+      { opacity: 0, scale: 0.94 },
+      { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', stagger: 0.15, delay: 0.4 }
+    );
+
+    // generic reveal-up on scroll
+    gsap.utils.toArray('.reveal-up').forEach(function(el){
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    // stat counters
+    gsap.utils.toArray('.stat-item strong').forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var obj = { val: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 90%', once: true,
+        onEnter: function(){
+          gsap.to(obj, {
+            val: target, duration: 1.6, ease: 'power1.out',
+            onUpdate: function(){ el.textContent = Math.round(obj.val) + suffix; }
+          });
+        }
+      });
+    });
+
+    // case card / service card subtle lift on scroll entrance handled by reveal-up already
+
+  } else {
+    // fallback if GSAP/CDN fails: ensure content is visible
+    document.querySelectorAll('.reveal-up').forEach(function(el){ el.style.opacity = 1; el.style.transform = 'none'; });
+    document.querySelectorAll('.hero h1 .reveal-word span').forEach(function(el){ el.style.transform = 'translateY(0)'; });
+  }
+})();
+</script>
+<script>
+(function(){
+  var nl = document.getElementById('newsletterEmail');
+  if(nl){
+    nl.addEventListener('input', function(){
+      if(/\s/.test(nl.value)) nl.value = nl.value.replace(/\s/g, '');
+    });
+    nl.addEventListener('keypress', function(e){
+      if(e.key === ' ') e.preventDefault();
+    });
+  }
+})();
+</script>
+<script>
+(function(){
+  var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+  var ticking = false;
+  function saveState(){
+    try{ sessionStorage.setItem('stackly_last_position', JSON.stringify({ path: PATH, y: window.scrollY })); }catch(e){}
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ saveState(); ticking = false; }); }
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('beforeunload', saveState);
+  saveState();
+})();
+</script>
+</body>
+</html>

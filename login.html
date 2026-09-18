@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — Stackly Consulting</title>
+<meta name="description" content="Log in to your Stackly Consulting client or team account to track engagements, review deliverables, and message your advisory team.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:        #F3EEE3;
+    --paper:        #EAE2CE;
+    --ink:          #1E2A22;
+    --ink-soft:     #354438;
+    --brass:        #A9832F;
+    --brass-light:  #C9A24E;
+    --forest:       #35503B;
+    --forest-deep:  #223026;
+    --white:        #FFFFFF;
+    --line: rgba(30,42,34,0.14);
+    --red: #B5443B;
+
+    --serif: "Newsreader", Georgia, serif;
+    --sans:  "Manrope", -apple-system, sans-serif;
+    --mono:  "IBM Plex Mono", monospace;
+    --ease: cubic-bezier(.22,.9,.3,1);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--cream); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:500; margin:0; color:var(--ink); letter-spacing:-0.01em; }
+  p{ margin:0; color:var(--ink-soft); }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+  .split-word{ display:inline-block; overflow:hidden; vertical-align:top; }
+  .split-word span{ display:inline-block; transform:translateY(112%); }
+
+  /* ============ LAYOUT ============ */
+  .auth-wrap{ min-height:100vh; display:grid; grid-template-columns:1.05fr 0.95fr; }
+
+  /* ---- VISUAL SIDE ---- */
+  .auth-visual{ position:relative; overflow:hidden; background:var(--forest-deep); min-height:100vh; }
+  .auth-visual .bg-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.5; }
+  .auth-visual .mesh{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(30,42,34,.55) 0%, rgba(34,48,38,.88) 62%, rgba(34,48,38,.97) 100%),
+               radial-gradient(ellipse 600px 400px at 15% 0%, rgba(169,131,47,.28), transparent 60%);
+  }
+  .auth-visual-content{ position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(28px,4vw,56px); min-height:100vh; }
+  .av-logo img{ height:32px; filter:brightness(0) invert(1); }
+  .av-hero{ max-width:46ch; }
+  .av-eyebrow{ font-family:var(--mono); font-size:0.78rem; color:var(--brass-light); letter-spacing:.02em; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .av-eyebrow::before{ content:""; width:22px; height:1px; background:var(--brass-light); display:inline-block; }
+  .av-hero h1{ color:var(--cream); font-size:clamp(2rem,3.4vw,2.9rem); line-height:1.12; margin-bottom:18px; }
+  .av-hero h1 em{ font-style:italic; color:var(--brass-light); }
+  .av-hero p{ color:rgba(243,238,227,.78); font-size:1.02rem; margin-bottom:30px; }
+  .av-stats{ display:flex; gap:34px; flex-wrap:wrap; }
+  .av-stats div h3{ color:var(--brass-light); font-size:1.7rem; margin-bottom:2px; }
+  .av-stats div span{ font-family:var(--mono); font-size:0.72rem; color:rgba(243,238,227,.62); }
+  .av-quote{ background:rgba(243,238,227,.08); border:1px solid rgba(243,238,227,.16); border-radius:6px; padding:22px 24px; max-width:44ch; backdrop-filter:blur(6px); }
+  .av-quote p{ font-family:var(--serif); font-style:italic; color:var(--cream); font-size:1.02rem; line-height:1.5; margin-bottom:12px; }
+  .av-quote .who{ font-family:var(--mono); font-size:0.75rem; color:var(--brass-light); }
+
+  /* ---- FORM SIDE ---- */
+  .auth-panel{ position:relative; display:flex; flex-direction:column; justify-content:center; min-height:100vh; padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px); background:var(--cream); }
+  .back-link{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:0.8rem; color:var(--ink-soft); width:fit-content; margin:32px auto 0; transition:.25s; }
+  .back-link svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; }
+  .back-link:hover{ color:var(--ink); }
+  .auth-box{ width:100%; max-width:420px; margin:0 auto; }
+
+  .mode-switch{ position:relative; display:grid; grid-template-columns:1fr 1fr; background:var(--paper); border-radius:30px; padding:5px; margin-bottom:34px; }
+  .mode-switch .slider{ position:absolute; top:5px; left:5px; width:calc(50% - 5px); height:calc(100% - 10px); background:var(--ink); border-radius:26px; transition:transform .4s var(--ease); }
+  .mode-switch button{ position:relative; z-index:2; background:none; border:none; padding:11px 0; font-weight:700; font-size:0.9rem; color:var(--ink-soft); transition:color .3s; border-radius:26px; }
+  .mode-switch button.active{ color:var(--cream); }
+  .mode-switch[data-mode="signup"] .slider{ transform:translateX(100%); }
+
+  .auth-eyebrow{ font-family:var(--mono); font-size:0.78rem; color:var(--brass); letter-spacing:.02em; margin-bottom:10px; }
+  .auth-box h1{ font-size:1.7rem; margin-bottom:24px; }
+
+  .role-picker{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+  .role-opt input{ position:absolute; opacity:0; pointer-events:none; }
+  .role-opt .card{
+    display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px 10px;
+    border:1px solid var(--line); border-radius:6px; background:var(--white); font-size:0.85rem; font-weight:600;
+    color:var(--ink-soft); transition:.25s; cursor:pointer;
+  }
+  .role-opt .card svg{ width:22px; height:22px; stroke:var(--ink-soft); fill:none; stroke-width:1.6; transition:.25s; }
+  .role-opt input:checked + .card{ border-color:var(--brass); background:rgba(169,131,47,0.08); color:var(--ink); }
+  .role-opt input:checked + .card svg{ stroke:var(--brass); }
+  .role-caption{ font-size:0.82rem; margin-bottom:22px; }
+  .role-caption b{ color:var(--ink); }
+
+  .top-alert{
+    display:none; align-items:flex-start; gap:10px; background:rgba(181,68,59,0.1); border:1px solid rgba(181,68,59,0.3);
+    color:var(--red); padding:13px 16px; border-radius:4px; font-size:0.85rem; margin-bottom:18px;
+  }
+  .top-alert.show{ display:flex; }
+  .top-alert svg{ width:18px; height:18px; flex-shrink:0; stroke:var(--red); fill:none; stroke-width:1.8; margin-top:1px; }
+  .top-alert.ok{ background:rgba(53,80,59,0.1); border-color:rgba(53,80,59,0.3); color:var(--forest); }
+  .top-alert.ok svg{ stroke:var(--forest); }
+
+  .form-group{ margin-bottom:18px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-group label{ display:block; font-family:var(--mono); font-size:0.72rem; color:var(--ink-soft); margin-bottom:8px; letter-spacing:.02em; }
+  .form-group input{
+    width:100%; padding:13px 16px; border:1px solid var(--line); border-radius:3px; background:var(--white);
+    font-family:var(--sans); font-size:0.95rem; color:var(--ink); transition:border-color .25s;
+  }
+  .form-group input:focus{ outline:2px solid var(--brass); outline-offset:1px; border-color:var(--brass); }
+  .form-group.invalid input{ border-color:var(--red); }
+  .form-group .error-msg{ display:none; font-size:0.78rem; color:var(--red); margin-top:7px; }
+  .form-group.invalid .error-msg{ display:block; }
+
+  .pw-wrap{ position:relative; }
+  .pw-wrap input{ padding-right:46px; }
+  .pw-toggle{ position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; padding:6px; }
+  .pw-toggle svg{ width:18px; height:18px; stroke:var(--ink-soft); fill:none; stroke-width:1.6; }
+  .pw-strength{ height:3px; background:var(--line); border-radius:2px; margin-top:8px; overflow:hidden; }
+  .pw-strength-bar{ height:100%; width:0%; background:var(--red); transition:width .3s, background .3s; }
+
+  .form-meta{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .remember{ display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--ink-soft); }
+  .remember input{ accent-color:var(--brass); }
+  .forgot-link{ font-size:0.85rem; color:var(--brass); font-weight:600; }
+  .remember-error{ display:none; font-size:0.78rem; color:var(--red); margin-bottom:14px; }
+  .remember-error.show{ display:block; }
+
+  .btn-block{ width:100%; padding:15px; border-radius:3px; border:none; background:var(--ink); color:var(--cream); font-weight:700; font-size:0.95rem; margin-top:6px; transition:background .3s, transform .3s; }
+  .btn-block:hover{ background:var(--forest); transform:translateY(-2px); }
+
+  .switch-note{ text-align:center; font-size:0.88rem; color:var(--ink-soft); margin-top:22px; }
+  .switch-note a{ color:var(--brass); font-weight:700; }
+
+  .auth-view{ display:none; }
+  .auth-view.active{ display:block; animation:panelIn .5s ease; }
+  @keyframes panelIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+  @media (max-width:980px){
+    .auth-wrap{ grid-template-columns:1fr; }
+    .auth-visual{ display:none; }
+    .auth-panel{ min-height:100vh; }
+  }
+  @media (max-width:520px){
+    .form-row{ grid-template-columns:1fr; }
+    .role-picker{ grid-template-columns:1fr 1fr; }
+    .auth-panel{ padding:26px 20px 40px; }
+    .back-link{ margin-top:26px; }
+  }
+</style>
+
+<style>
+  /* ============ PRELOADER ============ */
+  .preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .6s cubic-bezier(.22,.9,.3,1);
+  }
+  .preloader.hide{ opacity:0; pointer-events:none; }
+  .preloader-inner{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .preloader-logo{ height:32px; width:auto; opacity:.9; animation:preloaderPulse 1.6s ease-in-out infinite; }
+  @keyframes preloaderPulse{ 0%,100%{ opacity:.5; } 50%{ opacity:1; } }
+  .preloader-bar{ width:140px; height:2px; background:rgba(30,42,34,0.14); border-radius:2px; overflow:hidden; }
+  .preloader-bar span{ display:block; height:100%; width:0%; background:#A9832F; border-radius:2px; transition:width .2s linear; }
+  .preloader-tag{ font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:#354438; }
+  @media (prefers-reduced-motion: reduce){ .preloader-logo{ animation:none; } .preloader{ transition:none; } }
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="preloader-inner">
+    <img class="preloader-logo" src="./assets/stackly-logo.webp" alt="">
+    <div class="preloader-bar"><span id="preloaderFill"></span></div>
+    <div class="preloader-tag">Preparing the page</div>
+  </div>
+</div>
+<script>
+(function(){
+  var htmlEl = document.documentElement;
+  var body = document.body;
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  body.style.overflow = 'hidden';
+
+  var fill = document.getElementById('preloaderFill');
+  var start = Date.now();
+  var MIN_MS = 450;
+  var pct = 0;
+  var trickle = setInterval(function(){
+    pct = Math.min(88, pct + Math.random()*12);
+    if(fill) fill.style.width = pct + '%';
+  }, 130);
+
+  function reveal(){
+    clearInterval(trickle);
+    if(fill) fill.style.width = '100%';
+
+    try{
+      var raw = sessionStorage.getItem('stackly_restore_scroll');
+      if(raw){
+        var data = JSON.parse(raw);
+        var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+        if(data && data.path === PATH && !data.view){
+          sessionStorage.removeItem('stackly_restore_scroll');
+          if(typeof data.y === 'number'){
+            var prevBehavior = htmlEl.style.scrollBehavior;
+            htmlEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, data.y);
+            void htmlEl.offsetHeight;
+            htmlEl.style.scrollBehavior = prevBehavior || '';
+          }
+        }
+      }
+    }catch(e){}
+
+    setTimeout(function(){
+      pre.classList.add('hide');
+      body.style.overflow = '';
+      setTimeout(function(){ pre.style.display = 'none'; }, 650);
+    }, 100);
+  }
+
+  function onReady(){
+    var wait = Math.max(0, MIN_MS - (Date.now() - start));
+    setTimeout(reveal, wait);
+  }
+  if(document.readyState === 'complete'){ onReady(); }
+  else{ window.addEventListener('load', onReady); }
+})();
+</script>
+
+<div class="auth-wrap">
+
+  <div class="auth-visual">
+    <img class="bg-img" src="./assets/Advisory team reviewing a strategy plan.webp" alt="Advisory team reviewing a strategy plan">
+    <div class="mesh"></div>
+    <div class="auth-visual-content">
+      <a href="index.html" class="av-logo"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+      <div class="av-hero">
+        <div class="av-eyebrow">Client &amp; team portal</div>
+        <h1 id="heroTitle">Every deliverable and decision, <em>one</em> login away.</h1>
+        <p>Track engagement progress, review deliverables, and message your advisory team — all from one account.</p>
+        <div class="av-stats">
+          <div><h3>180+</h3><span>Engagements delivered</span></div>
+          <div><h3>14 yrs</h3><span>In operation</span></div>
+          <div><h3>96%</h3><span>Client return rate</span></div>
+        </div>
+      </div>
+      <div class="av-quote">
+        <p>"Stackly kept us informed at every stage — no black box, no surprise invoice. Exactly what we needed for a board-level decision."</p>
+        <div class="who">Renu Adiga — CFO, portfolio client</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-box">
+
+      <div class="mode-switch" id="modeSwitch" data-mode="signin">
+        <div class="slider"></div>
+        <button class="active" data-mode="signin" type="button">Log In</button>
+        <button data-mode="signup" type="button">Sign Up</button>
+      </div>
+
+      <!-- ===================== LOG IN ===================== -->
+      <div class="auth-view active" id="viewSignin">
+        <div class="auth-eyebrow">Welcome back</div>
+        <h1>Log in to your account</h1>
+
+        <div class="role-picker" id="loginRolePicker">
+          <label class="role-opt">
+            <input type="radio" name="login-role" value="client" checked>
+            <div class="card"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>Client</div>
+          </label>
+          <label class="role-opt">
+            <input type="radio" name="login-role" value="admin">
+            <div class="card"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Admin</div>
+          </label>
+        </div>
+        <div class="role-caption" id="loginRoleCaption">Signing in as a <b>client</b></div>
+
+        <div id="loginAlert" class="top-alert">
+          <svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+          <span id="loginAlertText">Please fill in a valid email and password.</span>
+        </div>
+
+        <form id="formLogin" novalidate>
+          <div class="form-group" id="fg-lemail">
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" data-type="email" placeholder="you@company.com" autocomplete="username">
+            <span class="error-msg">Enter a valid email address.</span>
+          </div>
+          <div class="form-group" id="fg-lpass">
+            <label for="loginPassword">Password</label>
+            <div class="pw-wrap">
+              <input type="password" id="loginPassword" placeholder="At least 8 characters" autocomplete="current-password" minlength="8">
+              <button type="button" class="pw-toggle" data-target="loginPassword" aria-label="Show password">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <span class="error-msg">Password must be at least 8 characters.</span>
+          </div>
+          <div class="form-meta">
+            <label class="remember"><input type="checkbox" id="rememberMe"> Remember me</label>
+            <a href="./404.html" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="remember-error" id="rememberError">Please check "Remember me" to log in.</div>
+          <button type="submit" class="btn-block" id="loginSubmit">Log in as <span id="loginRoleLabel">Client</span> →</button>
+        </form>
+        <div class="switch-note">New here? <a href="#" onclick="switchMode('signup');return false;">Create an account</a></div>
+      </div>
+
+      <!-- ===================== SIGN UP ===================== -->
+      <div class="auth-view" id="viewSignup">
+        <div class="auth-eyebrow">Join Stackly</div>
+        <h1>Create your account</h1>
+
+        <div id="signupAlert" class="top-alert ok">
+          <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span id="signupAlertText">Account created — please log in.</span>
+        </div>
+
+        <form id="formSignup" novalidate>
+          <div class="form-row">
+            <div class="form-group" id="fg-sfname">
+              <label for="signupFirstName">First name</label>
+              <input type="text" id="signupFirstName" data-type="text" placeholder="First name">
+              <span class="error-msg">Letters only — no spaces, numbers or symbols.</span>
+            </div>
+            <div class="form-group" id="fg-slname">
+              <label for="signupLastName">Last name</label>
+              <input type="text" id="signupLastName" data-type="text" placeholder="Last name">
+              <span class="error-msg">Letters only — no spaces, numbers or symbols.</span>
+            </div>
+          </div>
+
+          <div class="role-picker" id="signupRolePicker">
+            <label class="role-opt">
+              <input type="radio" name="signup-role" value="client" checked>
+              <div class="card"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>Client</div>
+            </label>
+            <label class="role-opt">
+              <input type="radio" name="signup-role" value="admin">
+              <div class="card"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Admin</div>
+            </label>
+          </div>
+          <div class="role-caption" id="signupRoleCaption">Creating an account as a <b>client</b></div>
+
+          <div class="form-group" id="fg-semail">
+            <label for="signupEmail">Email address</label>
+            <input type="email" id="signupEmail" data-type="email" placeholder="you@company.com" autocomplete="username">
+            <span class="error-msg">Enter a valid email address.</span>
+          </div>
+          <div class="form-group" id="fg-spass">
+            <label for="signupPassword">Create password</label>
+            <div class="pw-wrap">
+              <input type="password" id="signupPassword" placeholder="At least 8 characters" autocomplete="new-password">
+              <button type="button" class="pw-toggle" data-target="signupPassword" aria-label="Show password">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <div class="pw-strength"><div class="pw-strength-bar" id="pwStrengthBar"></div></div>
+            <span class="error-msg">Minimum 8 characters.</span>
+          </div>
+          <div class="form-group" id="fg-scpass">
+            <label for="signupConfirm">Confirm password</label>
+            <div class="pw-wrap">
+              <input type="password" id="signupConfirm" placeholder="Re-enter password" autocomplete="new-password">
+              <button type="button" class="pw-toggle" data-target="signupConfirm" aria-label="Show password">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <span class="error-msg">Passwords do not match.</span>
+          </div>
+          <button type="submit" class="btn-block">Create account →</button>
+        </form>
+        <div class="switch-note">Already registered? <a href="#" onclick="switchMode('signin');return false;">Log in</a></div>
+      </div>
+
+      <!-- ===================== FORGOT PASSWORD ===================== -->
+  
+
+    </div>
+
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Home
+    </a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  // ---- hero title word reveal ----
+  var heroTitle = document.getElementById('heroTitle');
+  if (heroTitle) {
+    var words = heroTitle.innerHTML.split(' ');
+    heroTitle.innerHTML = words.map(function(w){ return '<span class="split-word"><span>'+w+'</span></span>'; }).join(' ');
+  }
+
+  if (window.gsap) {
+    gsap.set('.av-hero p, .av-stats, .av-quote', { opacity: 0, y: 16 });
+    gsap.set('.auth-box', { opacity: 0, y: 22 });
+    gsap.set('.back-link', { opacity: 0 });
+    var tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    tl.to('.split-word span', { y: '0%', duration: 1, stagger: 0.05 })
+      .to('.av-hero p, .av-stats, .av-quote', { opacity: 1, y: 0, duration: 0.7, stagger: 0.12 }, '-=0.5')
+      .to('.back-link', { opacity: 1, duration: 0.5 }, '-=0.6')
+      .to('.auth-box', { opacity: 1, y: 0, duration: 0.7 }, '-=0.6');
+  } else {
+    document.querySelectorAll('.av-hero p, .av-stats, .av-quote, .auth-box, .back-link').forEach(function(el){ el.style.opacity = 1; });
+  }
+
+  // ---- mode switch (Log In / Sign Up tabs) ----
+  var modeSwitch = document.getElementById('modeSwitch');
+  var views = { signin: document.getElementById('viewSignin'), signup: document.getElementById('viewSignup'), forgot: document.getElementById('viewForgot') };
+
+  window.switchMode = function(mode){
+    modeSwitch.setAttribute('data-mode', mode === 'forgot' ? 'signin' : mode);
+    modeSwitch.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-mode') === mode); });
+    Object.keys(views).forEach(function(k){ views[k].classList.toggle('active', k === mode); });
+  };
+  modeSwitch.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){ switchMode(btn.getAttribute('data-mode')); });
+  });
+
+  // ---- role pickers ----
+  function wireRolePicker(name, captionId, submitLabelId){
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(radio){
+      radio.addEventListener('change', function(){
+        var val = radio.value;
+        var label = val === 'client' ? 'client' : (val === 'admin' ? 'admin' : 'team member');
+        var caption = document.getElementById(captionId);
+        if(caption) caption.innerHTML = (name.indexOf('signup') === 0 ? 'Creating an account as a ' : 'Signing in as a ') + '<b>'+label+'</b>';
+        if(submitLabelId){
+          var lbl = document.getElementById(submitLabelId);
+          if(lbl) lbl.textContent = val === 'client' ? 'Client' : (val === 'admin' ? 'Admin' : 'Team');
+        }
+      });
+    });
+  }
+  wireRolePicker('login-role', 'loginRoleCaption', 'loginRoleLabel');
+  wireRolePicker('signup-role', 'signupRoleCaption', null);
+
+  // ---- password show/hide ----
+  document.querySelectorAll('.pw-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var input = document.getElementById(btn.getAttribute('data-target'));
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+  });
+
+  // ---- password strength ----
+  var spw = document.getElementById('signupPassword');
+  if(spw){
+    spw.addEventListener('input', function(){
+      var v = spw.value;
+      var score = 0;
+      if(v.length >= 8) score++;
+      if(/[A-Z]/.test(v)) score++;
+      if(/[0-9]/.test(v)) score++;
+      if(/[^A-Za-z0-9]/.test(v)) score++;
+      var bar = document.getElementById('pwStrengthBar');
+      var pct = (score/4)*100;
+      var colors = ['#B5443B','#B5443B','#C9A24E','#35503B','#35503B'];
+      bar.style.width = pct + '%';
+      bar.style.background = colors[score];
+    });
+  }
+
+  // ---- validation helpers ----
+  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function isLettersOnly(v){ return /^[A-Za-z]+$/.test(v); }
+  function setInvalid(id, invalid){
+    var el = document.getElementById(id);
+    if(el) el.classList.toggle('invalid', invalid);
+  }
+  function attachLettersOnly(input){
+    if(!input) return;
+    input.addEventListener('input', function(){
+      var cleaned = input.value.replace(/[^A-Za-z]/g, '');
+      if(cleaned !== input.value) input.value = cleaned;
+    });
+    input.addEventListener('keypress', function(e){
+      if(e.key.length === 1 && !/[A-Za-z]/.test(e.key)) e.preventDefault();
+    });
+  }
+  function attachNoSpaceEmail(input){
+    if(!input) return;
+    input.addEventListener('input', function(){
+      if(/\s/.test(input.value)) input.value = input.value.replace(/\s/g, '');
+    });
+    input.addEventListener('keypress', function(e){
+      if(e.key === ' ') e.preventDefault();
+    });
+  }
+  attachLettersOnly(document.getElementById('signupFirstName'));
+  attachLettersOnly(document.getElementById('signupLastName'));
+  attachNoSpaceEmail(document.getElementById('loginEmail'));
+  attachNoSpaceEmail(document.getElementById('signupEmail'));
+  attachNoSpaceEmail(document.getElementById('forgotEmail'));
+
+  // ---- log in form ----
+  var formLogin = document.getElementById('formLogin');
+  var rememberBox = document.getElementById('rememberMe');
+  var rememberError = document.getElementById('rememberError');
+  rememberBox.addEventListener('change', function(){
+    if(rememberBox.checked) rememberError.classList.remove('show');
+  });
+
+  formLogin.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('loginEmail').value.trim();
+    var pass = document.getElementById('loginPassword').value;
+    var emailOk = isEmail(email);
+    var passOk = pass.length >= 8;
+    var rememberOk = rememberBox.checked;
+    setInvalid('fg-lemail', !emailOk);
+    setInvalid('fg-lpass', !passOk);
+    rememberError.classList.toggle('show', !rememberOk);
+    var alertBox = document.getElementById('loginAlert');
+    if(!emailOk || !passOk){
+      alertBox.classList.add('show');
+      return;
+    }
+    alertBox.classList.remove('show');
+    if(!rememberOk){
+      return;
+    }
+
+    var roleEl = document.querySelector('input[name="login-role"]:checked');
+    var role = roleEl ? roleEl.value : 'client';
+    var name = email.split('@')[0].replace(/[._]+/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+
+    // Remember me is required to log in, so the session always persists in localStorage.
+    try{
+      sessionStorage.removeItem('stackly_role'); sessionStorage.removeItem('stackly_name'); sessionStorage.removeItem('stackly_email');
+      localStorage.setItem('stackly_role', role);
+      localStorage.setItem('stackly_name', name);
+      localStorage.setItem('stackly_email', email);
+    }catch(err){}
+
+    var btn = document.getElementById('loginSubmit');
+    btn.textContent = 'Logging in…';
+    setTimeout(function(){
+      window.location.href = (role === 'admin') ? 'admin-dashboard.html' : 'user-dashboard.html';
+    }, 700);
+  });
+
+  // ---- sign up form ----
+  var formSignup = document.getElementById('formSignup');
+  formSignup.addEventListener('submit', function(e){
+    e.preventDefault();
+    var fn = document.getElementById('signupFirstName').value.trim();
+    var ln = document.getElementById('signupLastName').value.trim();
+    var email = document.getElementById('signupEmail').value.trim();
+    var pw = document.getElementById('signupPassword').value;
+    var cpw = document.getElementById('signupConfirm').value;
+    var ok = true;
+    if(!fn || !isLettersOnly(fn)){ setInvalid('fg-sfname', true); ok = false; } else setInvalid('fg-sfname', false);
+    if(!ln || !isLettersOnly(ln)){ setInvalid('fg-slname', true); ok = false; } else setInvalid('fg-slname', false);
+    if(!isEmail(email)){ setInvalid('fg-semail', true); ok = false; } else setInvalid('fg-semail', false);
+    if(pw.length < 8){ setInvalid('fg-spass', true); ok = false; } else setInvalid('fg-spass', false);
+    if(cpw !== pw || !cpw){ setInvalid('fg-scpass', true); ok = false; } else setInvalid('fg-scpass', false);
+    if(!ok) return;
+    document.getElementById('signupAlert').classList.add('show');
+    setTimeout(function(){ switchMode('signin'); }, 900);
+  });
+
+  // ---- forgot password form ----
+  var formForgot = document.getElementById('formForgot');
+  formForgot.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('forgotEmail').value.trim();
+    var ok = isEmail(email);
+    setInvalid('fg-femail', !ok);
+    if(!ok) return;
+    document.getElementById('formForgot').style.display = 'none';
+    document.getElementById('forgotSuccess').style.display = 'block';
+  });
+})();
+</script>
+<script>
+(function(){
+  var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+  var ticking = false;
+  function saveState(){
+    try{ sessionStorage.setItem('stackly_last_position', JSON.stringify({ path: PATH, y: window.scrollY })); }catch(e){}
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ saveState(); ticking = false; }); }
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('beforeunload', saveState);
+  saveState();
+})();
+</script>
+</body>
+</html>

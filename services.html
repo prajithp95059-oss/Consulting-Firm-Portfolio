@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Stackly Consulting</title>
+<meta name="description" content="Strategy & growth, financial & risk advisory, operations excellence, market entry, and digital transformation — explore Stackly Consulting's five practices.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:        #F3EEE3;
+    --paper:        #EAE2CE;
+    --ink:          #1E2A22;
+    --ink-soft:     #354438;
+    --brass:        #A9832F;
+    --brass-light:  #C9A24E;
+    --forest:       #35503B;
+    --forest-deep:  #223026;
+    --white:        #FFFFFF;
+    --line: rgba(30,42,34,0.14);
+
+    --serif: "Newsreader", Georgia, serif;
+    --sans:  "Manrope", -apple-system, sans-serif;
+    --mono:  "IBM Plex Mono", monospace;
+
+    --maxw: 1800px;
+    --pad:  clamp(20px, 3vw, 56px);
+
+    --ease: cubic-bezier(.22,.9,.3,1);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:500; margin:0; color:var(--ink); letter-spacing:-0.01em; }
+  h2{ font-size:clamp(2rem, 3.4vw, 3rem); line-height:1.12; }
+  h3{ font-size:1.4rem; line-height:1.3; }
+  p{ margin:0; color:var(--ink-soft); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--brass);
+    letter-spacing:0.02em; margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--brass); display:inline-block; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:14px 28px; border-radius:3px; font-weight:600; font-size:0.95rem;
+    border:1px solid transparent; transition:transform .35s var(--ease), background .3s, color .3s, border-color .3s;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--ink); color:var(--cream); }
+  .btn-primary:hover{ background:var(--forest); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--cream); transform:translateY(-2px); }
+  .btn-brass{ background:var(--brass); color:var(--ink); }
+  .btn-brass:hover{ background:var(--brass-light); transform:translateY(-2px); }
+  .btn-outline-cream{ background:transparent; color:var(--cream); border-color:rgba(243,238,227,.5); }
+  .btn-outline-cream:hover{ background:var(--cream); color:var(--ink); }
+  .btn-login{ background:var(--forest); color:var(--cream); }
+  .btn-login:hover{ background:var(--forest-deep); transform:translateY(-2px); }
+  .btn-sm{ padding:10px 20px; font-size:0.85rem; }
+  .btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+  section{ position:relative; }
+
+  /* ============ HEADER ============ */
+  header{
+    position:sticky; top:0; z-index:200;
+    background:rgba(243,238,227,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s;
+  }
+  header.scrolled{ box-shadow:0 8px 24px rgba(30,42,34,0.08); }
+  .header-inner{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    gap:24px; padding-top:14px; padding-bottom:14px;
+  }
+  .logo img{ height:40px; width:auto; }
+  nav.main-nav{ justify-self:center; }
+  nav.main-nav ul{ display:flex; align-items:center; gap:clamp(18px,2.2vw,34px); }
+  nav.main-nav a{
+    font-size:0.95rem; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0; transition:color .25s;
+  }
+  nav.main-nav a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+    background:var(--brass); transition:right .35s var(--ease);
+  }
+  nav.main-nav a:hover, nav.main-nav a.active{ color:var(--ink); }
+  nav.main-nav a:hover::after, nav.main-nav a.active::after{ right:0; }
+  .header-actions{ justify-self:end; display:flex; align-items:center; gap:16px; }
+  .header-actions .btn-login{ padding:11px 24px; }
+
+  .hamburger{
+    display:none; flex-direction:column; justify-content:center; align-items:center;
+    width:44px; height:44px; border:1px solid var(--line); border-radius:3px; background:transparent;
+    gap:5px;
+  }
+  .hamburger span{ width:20px; height:2px; background:var(--ink); display:block; transition:transform .3s var(--ease), opacity .3s; }
+  .hamburger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2){ opacity:0; }
+  .hamburger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-drawer{
+    position:fixed; inset:0 0 0 auto; width:min(360px,86vw); height:100vh;
+    background:var(--ink); color:var(--cream); z-index:400;
+    transform:translateX(100%); transition:transform .45s var(--ease);
+    display:flex; flex-direction:column; padding:24px;
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{ transform:translateX(0); }
+  .drawer-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; }
+  .drawer-top img{ height:30px; filter:brightness(0) invert(1); }
+  .drawer-exit{
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(243,238,227,.3);
+    background:transparent; color:var(--cream); position:relative; flex-shrink:0;
+  }
+  .drawer-exit::before, .drawer-exit::after{
+    content:""; position:absolute; left:50%; top:50%; width:16px; height:2px; background:var(--cream);
+  }
+  .drawer-exit::before{ transform:translate(-50%,-50%) rotate(45deg); }
+  .drawer-exit::after{ transform:translate(-50%,-50%) rotate(-45deg); }
+
+  .drawer-nav{ display:flex; flex-direction:column; gap:4px; margin-bottom:auto; }
+  .drawer-nav a{
+    font-family:var(--serif); font-size:1.5rem; padding:14px 4px; border-bottom:1px solid rgba(243,238,227,.12);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .drawer-nav a span{ font-family:var(--mono); font-size:0.75rem; color:var(--brass-light); }
+  .drawer-nav a.active{ color:var(--brass-light); }
+  .drawer-login{ margin-top:28px; }
+  .drawer-login .btn{ width:100%; }
+  .scrim{
+    position:fixed; inset:0; background:rgba(30,42,34,.5); z-index:390;
+    opacity:0; pointer-events:none; transition:opacity .4s;
+  }
+  .scrim.show{ opacity:1; pointer-events:auto; }
+
+  @media (max-width:900px){
+    nav.main-nav, .header-actions .btn-login{ display:none; }
+    .hamburger{ display:flex; }
+    .header-inner{ grid-template-columns:auto auto; justify-content:space-between; }
+  }
+
+  /* ============ PAGE HERO (inner pages) ============ */
+  .page-hero{
+    padding:clamp(64px,10vw,120px) 0 clamp(50px,7vw,80px);
+    background:
+      radial-gradient(ellipse 620px 420px at 88% -8%, rgba(169,131,47,0.16), transparent 60%),
+      var(--cream);
+    overflow:hidden;
+    text-align:center;
+  }
+  .page-hero .eyebrow{ justify-content:center; }
+  .page-hero h1{ font-size:clamp(2.4rem, 5.4vw, 4.2rem); line-height:1.06; margin:0 auto 18px; max-width:18ch; }
+  .page-hero h1 em{ font-style:italic; color:var(--forest); }
+  .page-hero .reveal-word{ display:inline-block; overflow:hidden; vertical-align:top; }
+  .page-hero .reveal-word span{ display:inline-block; transform:translateY(115%); }
+  .page-hero p.lead{ font-size:1.1rem; max-width:56ch; margin:0 auto; }
+  .breadcrumb{ display:flex; gap:8px; justify-content:center; font-family:var(--mono); font-size:0.78rem; color:var(--ink-soft); margin-bottom:20px; }
+  .breadcrumb a{ color:var(--brass); }
+  .breadcrumb span{ opacity:.5; }
+
+  /* generic reveal helper */
+  .reveal-up{ opacity:0; transform:translateY(28px); }
+
+  /* ============ CTA BAND ============ */
+  .cta-band{
+    margin:0 var(--pad); border-radius:6px; padding:clamp(50px,8vw,90px) clamp(24px,6vw,70px);
+    background:linear-gradient(120deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:var(--cream); text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-band h2{ color:var(--cream); max-width:20ch; margin:0 auto 20px; }
+  .cta-band p{ color:rgba(243,238,227,.78); max-width:50ch; margin:0 auto 34px; }
+  .cta-band .btns{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--ink); color:var(--cream); padding:clamp(70px,8vw,100px) 0 0; margin-top:clamp(70px,8vw,110px); }
+  .footer-grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:60px; border-bottom:1px solid rgba(243,238,227,0.12); }
+  .footer-brand img{ height:34px; filter:brightness(0) invert(1); margin-bottom:20px; }
+  .footer-brand p{ color:rgba(243,238,227,0.68); font-size:0.92rem; max-width:34ch; margin-bottom:26px; }
+  .social-row{ display:flex; gap:12px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:50%; border:1px solid rgba(243,238,227,0.28);
+    display:flex; align-items:center; justify-content:center; transition:.3s;
+  }
+  .social-row a svg{ width:18px; height:18px; fill:var(--cream); flex-shrink:0; transition:.3s; }
+  .social-row a:hover{ border-color:transparent; }
+  .social-row a:hover svg{ fill:#fff; }
+  .social-row a.sm-linkedin:hover{ background:#0A66C2; }
+  .social-row a.sm-x:hover{ background:#000000; }
+  .social-row a.sm-instagram:hover{ background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-row a.sm-youtube:hover{ background:#FF0000; }
+  .footer-col h4{ color:var(--brass-light); font-family:var(--sans); font-size:0.85rem; font-weight:700; margin-bottom:20px; }
+  .footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+  .footer-col a{ color:rgba(243,238,227,0.72); font-size:0.92rem; transition:.25s; }
+  .footer-col a:hover{ color:var(--brass-light); padding-left:4px; }
+  .footer-addr address{ font-style:normal; color:rgba(243,238,227,0.72); font-size:0.92rem; line-height:1.7; margin-bottom:18px; }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding:26px 0; flex-wrap:wrap; gap:12px; }
+  .footer-bottom p{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal{ display:flex; gap:22px; }
+  .footer-bottom .legal a{ color:rgba(243,238,227,0.5); font-size:0.82rem; }
+  .footer-bottom .legal a:hover{ color:var(--cream); }
+  @media (max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .footer-grid{ grid-template-columns:1fr; } .footer-bottom{ flex-direction:column; align-items:flex-start; } }
+
+
+  /* ============ SERVICES HERO ============ */
+  .page-hero.services-hero{ background:
+      radial-gradient(ellipse 620px 420px at 88% -8%, rgba(169,131,47,0.16), transparent 60%),
+      var(--cream); }
+
+  /* ============ SERVICE DETAIL LIST ============ */
+  .service-detail{ padding:clamp(70px,9vw,120px) 0; border-bottom:1px solid var(--line); }
+  .service-detail:last-of-type{ border-bottom:none; }
+  .service-detail .wrap{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(30px,6vw,80px); align-items:center; }
+  .service-detail.reverse .wrap{ direction:rtl; }
+  .service-detail.reverse .wrap > *{ direction:ltr; }
+  .sd-media{ position:relative; border-radius:4px; overflow:hidden; height:420px; box-shadow:0 30px 60px -20px rgba(30,42,34,0.3); }
+  .sd-media img{ width:100%; height:100%; object-fit:cover; }
+  .sd-num{ font-family:var(--mono); font-size:0.8rem; color:var(--brass); display:block; margin-bottom:14px; }
+  .sd-text h2{ margin-bottom:16px; }
+  .sd-text p.desc{ font-size:1.05rem; margin-bottom:24px; max-width:56ch; }
+  .sd-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
+  .sd-tags span{ font-family:var(--mono); font-size:0.72rem; padding:7px 14px; border:1px solid var(--line); border-radius:20px; color:var(--ink-soft); }
+  @media (max-width:900px){
+    .service-detail .wrap, .service-detail.reverse .wrap{ grid-template-columns:1fr; direction:ltr; }
+    .sd-media{ height:300px; }
+  }
+
+  /* ============ PROCESS (reuse) ============ */
+  .process{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); }
+  .process-head{ max-width:640px; margin-bottom:60px; }
+  .process-rail{ position:relative; }
+  .process-rail::before{ content:""; position:absolute; left:26px; top:12px; bottom:12px; width:1px; background:var(--line); }
+  .p-step{ display:grid; grid-template-columns:54px 1fr; gap:26px; padding:26px 0; border-bottom:1px solid var(--line); }
+  .p-step:first-child{ padding-top:0; }
+  .p-step .p-num{
+    width:54px; height:54px; border-radius:50%; background:var(--cream); border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.95rem; z-index:2;
+  }
+  .p-step-body h3{ margin-bottom:10px; }
+  .p-step-body p{ max-width:62ch; }
+
+  /* ============ WHY US / COMPARISON ============ */
+  .whyus{ padding:clamp(80px,10vw,140px) 0; }
+  .whyus-head{ max-width:640px; margin-bottom:50px; }
+  .compare{ width:100%; border-collapse:collapse; background:var(--white); border-radius:4px; overflow:hidden; box-shadow:0 18px 40px -28px rgba(30,42,34,0.3); }
+  .compare th, .compare td{ padding:18px 24px; text-align:left; border-bottom:1px solid var(--line); font-size:0.95rem; }
+  .compare thead th{ font-family:var(--serif); font-size:1.05rem; font-weight:500; background:var(--ink); color:var(--cream); border-bottom:none; }
+  .compare thead th:first-child{ color:rgba(243,238,227,0.6); font-family:var(--sans); font-size:0.8rem; font-weight:600; }
+  .compare tbody tr:last-child td{ border-bottom:none; }
+  .compare tbody td:first-child{ color:var(--ink); font-weight:600; }
+  .compare .yes{ color:var(--forest); font-weight:700; }
+  .compare .no{ color:#B5443B; }
+  .compare td:nth-child(3){ background:rgba(169,131,47,0.06); }
+  @media (max-width:640px){ .compare{ font-size:0.85rem; } .compare th, .compare td{ padding:14px 12px; } }
+  .compare-wrap{ overflow-x:auto; }
+
+  /* ============ PRICING NOTE ============ */
+  .pricing-note{ padding:clamp(70px,9vw,110px) 0; background:var(--forest-deep); color:var(--cream); text-align:center; }
+  .pricing-note .wrap{ max-width:760px; }
+  .pricing-note h2{ color:var(--cream); margin-bottom:18px; }
+  .pricing-note p{ color:rgba(243,238,227,.75); margin-bottom:30px; }
+
+  /* ============ FAQ ============ */
+  .faq{ padding:clamp(80px,10vw,140px) 0; background:var(--paper); color:var(--ink); }
+  .faq .wrap{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:clamp(30px,6vw,70px); }
+  .faq-head p{ margin-top:14px; max-width:36ch; }
+  .faq-list{ border-top:1px solid var(--line); }
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-q{
+    width:100%; background:none; border:none; color:var(--ink); text-align:left;
+    padding:22px 0; display:flex; justify-content:space-between; align-items:center; gap:20px;
+    font-family:var(--serif); font-size:1.1rem;
+  }
+  .faq-q .plus{ flex-shrink:0; width:22px; height:22px; position:relative; }
+  .faq-q .plus::before, .faq-q .plus::after{ content:""; position:absolute; background:var(--brass); top:50%; left:50%; transform:translate(-50%,-50%); }
+  .faq-q .plus::before{ width:14px; height:2px; }
+  .faq-q .plus::after{ width:2px; height:14px; transition:transform .3s var(--ease); }
+  .faq-item.open .plus::after{ transform:translate(-50%,-50%) rotate(90deg) scaleY(0); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
+  .faq-a p{ color:var(--ink-soft); padding-bottom:22px; max-width:56ch; }
+  .faq-item.open .faq-a{ max-height:220px; }
+  @media (max-width:800px){ .faq .wrap{ grid-template-columns:1fr; } }
+
+</style>
+<style>
+  .hero, .page-hero{ position:relative; }
+  .hero-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.12; z-index:0; pointer-events:none; user-select:none; }
+  .hero .wrap, .page-hero .wrap{ position:relative; z-index:1; }
+  .hero + section, .page-hero + section{ margin-top:clamp(40px,6vw,88px); }
+</style>
+
+<style>
+  /* ============ PRELOADER ============ */
+  .preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .6s cubic-bezier(.22,.9,.3,1);
+  }
+  .preloader.hide{ opacity:0; pointer-events:none; }
+  .preloader-inner{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .preloader-logo{ height:32px; width:auto; opacity:.9; animation:preloaderPulse 1.6s ease-in-out infinite; }
+  @keyframes preloaderPulse{ 0%,100%{ opacity:.5; } 50%{ opacity:1; } }
+  .preloader-bar{ width:140px; height:2px; background:rgba(30,42,34,0.14); border-radius:2px; overflow:hidden; }
+  .preloader-bar span{ display:block; height:100%; width:0%; background:#A9832F; border-radius:2px; transition:width .2s linear; }
+  .preloader-tag{ font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:#354438; }
+  @media (prefers-reduced-motion: reduce){ .preloader-logo{ animation:none; } .preloader{ transition:none; } }
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="preloader-inner">
+    <img class="preloader-logo" src="./assets/stackly-logo.webp" alt="">
+    <div class="preloader-bar"><span id="preloaderFill"></span></div>
+    <div class="preloader-tag">Preparing the page</div>
+  </div>
+</div>
+<script>
+(function(){
+  var htmlEl = document.documentElement;
+  var body = document.body;
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  body.style.overflow = 'hidden';
+
+  var fill = document.getElementById('preloaderFill');
+  var start = Date.now();
+  var MIN_MS = 450;
+  var pct = 0;
+  var trickle = setInterval(function(){
+    pct = Math.min(88, pct + Math.random()*12);
+    if(fill) fill.style.width = pct + '%';
+  }, 130);
+
+  function reveal(){
+    clearInterval(trickle);
+    if(fill) fill.style.width = '100%';
+
+    try{
+      var raw = sessionStorage.getItem('stackly_restore_scroll');
+      if(raw){
+        var data = JSON.parse(raw);
+        var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+        if(data && data.path === PATH && !data.view){
+          sessionStorage.removeItem('stackly_restore_scroll');
+          if(typeof data.y === 'number'){
+            var prevBehavior = htmlEl.style.scrollBehavior;
+            htmlEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, data.y);
+            void htmlEl.offsetHeight;
+            htmlEl.style.scrollBehavior = prevBehavior || '';
+          }
+        }
+      }
+    }catch(e){}
+
+    setTimeout(function(){
+      pre.classList.add('hide');
+      body.style.overflow = '';
+      setTimeout(function(){ pre.style.display = 'none'; }, 650);
+    }, 100);
+  }
+
+  function onReady(){
+    var wait = Math.max(0, MIN_MS - (Date.now() - start));
+    setTimeout(reveal, wait);
+  }
+  if(document.readyState === 'complete'){ onReady(); }
+  else{ window.addEventListener('load', onReady); }
+})();
+</script>
+
+<header id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-login">Log in</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-top">
+    <img src="./assets/stackly-logo.webp" alt="Stackly Consulting">
+    <button class="drawer-exit" id="drawerExit" aria-label="Close menu"></button>
+  </div>
+  <nav class="drawer-nav" aria-label="Mobile">
+    <a href="index.html">Home <span>01</span></a>
+    <a href="about.html">About <span>02</span></a>
+    <a href="services.html" class="active">Services <span>03</span></a>
+    <a href="case-studies.html">Case Studies <span>04</span></a>
+    <a href="blog.html">Blogs <span>05</span></a>
+    <a href="contact.html">Contact <span>06</span></a>
+  </nav>
+  <div class="drawer-login">
+    <a href="login.html" class="btn btn-login">Log in</a>
+  </div>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero services-hero">
+  <img class="hero-bg" src="./assets/employee.webp" alt="Team analyzing financial charts">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Services</div>
+    <div class="eyebrow">What we do</div>
+    <h1><span class="reveal-word"><span>Five</span></span> <span class="reveal-word"><span>practices,</span></span> <span class="reveal-word"><span>one</span></span><br><span class="reveal-word"><span>standard</span></span> <span class="reveal-word"><span>of</span></span> <span class="reveal-word"><span><em>rigour</em>.</span></span></h1>
+    <p class="lead">From first strategy conversation to the operating cadence that keeps it alive, every practice at Stackly Consulting is built to survive contact with your actual business.</p>
+  </div>
+</section>
+
+<section class="service-detail">
+  <div class="wrap">
+    <div class="sd-media reveal-up"><img src="./assets/s2.webp" alt="Boardroom strategy session"></div>
+    <div class="sd-text reveal-up">
+      <span class="sd-num">01</span>
+      <h2>Strategy &amp; growth</h2>
+      <p class="desc">We help leadership teams choose where to compete and where deliberately not to — then build the operating plan that makes the choice real, not just a slide in a deck.</p>
+      <div class="sd-tags">
+          <span>Corporate strategy</span>
+          <span>Growth planning</span>
+          <span>Portfolio review</span>
+          <span>Competitive positioning</span>
+      </div>
+      <a href="./404.html" class="btn btn-primary">Talk to a partner</a>
+    </div>
+  </div>
+</section>
+
+<section class="service-detail reverse">
+  <div class="wrap">
+    <div class="sd-media reveal-up"><img src="./assets/s3.webp" alt="Team analyzing financial charts"></div>
+    <div class="sd-text reveal-up">
+      <span class="sd-num">02</span>
+      <h2>Financial &amp; risk advisory</h2>
+      <p class="desc">Capital structuring, risk modelling, and board-level financial governance for organizations that need their numbers to hold up under scrutiny — from investors, lenders, or regulators.</p>
+      <div class="sd-tags">
+          <span>Capital structuring</span>
+          <span>Risk modelling</span>
+          <span>Financial governance</span>
+          <span>Due diligence support</span>
+      </div>
+      <a href="./404.html" class="btn btn-primary">Talk to a partner</a>
+    </div>
+  </div>
+</section>
+
+<section class="service-detail">
+  <div class="wrap">
+    <div class="sd-media reveal-up"><img src="./assets/s4.webp" alt="Manufacturing plant floor operations"></div>
+    <div class="sd-text reveal-up">
+      <span class="sd-num">03</span>
+      <h2>Operations excellence</h2>
+      <p class="desc">We get into the operating detail — process, throughput, cost structure — and fix what's actually slowing the business down, not just what's easiest to present in a workshop.</p>
+      <div class="sd-tags">
+          <span>Process redesign</span>
+          <span>Cost-to-serve</span>
+          <span>Supply chain</span>
+          <span>Performance management</span>
+      </div>
+      <a href="./404.html" class="btn btn-primary">Talk to a partner</a>
+    </div>
+  </div>
+</section>
+
+<section class="service-detail reverse">
+  <div class="wrap">
+    <div class="sd-media reveal-up"><img src="./assets/s5.webp" alt="Team discussing market expansion"></div>
+    <div class="sd-text reveal-up">
+      <span class="sd-num">04</span>
+      <h2>Market entry &amp; expansion</h2>
+      <p class="desc">Entering a new geography, channel, or segment is where good strategy most often meets bad execution. We build the entry plan and stay through the first 100 days of it.</p>
+      <div class="sd-tags">
+          <span>Geographic expansion</span>
+          <span>Channel strategy</span>
+          <span>Partnership structuring</span>
+          <span>Launch planning</span>
+      </div>
+      <a href="./404.html" class="btn btn-primary">Talk to a partner</a>
+    </div>
+  </div>
+</section>
+
+<section class="service-detail">
+  <div class="wrap">
+    <div class="sd-media reveal-up"><img src="./assets/s6.webp" alt="Team reviewing digital systems and dashboards"></div>
+    <div class="sd-text reveal-up">
+      <span class="sd-num">05</span>
+      <h2>Digital transformation</h2>
+      <p class="desc">Technology decisions that follow the operating model, not the other way around. We help you choose, sequence, and land systems changes that the business can actually absorb.</p>
+      <div class="sd-tags">
+          <span>Systems roadmap</span>
+          <span>Change management</span>
+          <span>Data &amp; reporting</span>
+          <span>Automation strategy</span>
+      </div>
+      <a href="./404.html" class="btn btn-primary">Talk to a partner</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process">
+  <div class="wrap">
+    <div class="process-head reveal-up">
+      <div class="eyebrow">How an engagement runs</div>
+      <h2>Four stages, from first call to measured outcome.</h2>
+    </div>
+    <div class="process-rail">
+      <div class="p-step reveal-up">
+        <div class="p-num">01</div>
+        <div class="p-step-body"><h3>Diagnose</h3><p>A focused two-to-three week diagnostic to find the real constraint — not the one that's easiest to talk about.</p></div>
+      </div>
+      <div class="p-step reveal-up">
+        <div class="p-num">02</div>
+        <div class="p-step-body"><h3>Design</h3><p>We build the plan with your team in the room, so it's shaped by the constraints you actually operate under.</p></div>
+      </div>
+      <div class="p-step reveal-up">
+        <div class="p-num">03</div>
+        <div class="p-step-body"><h3>Implement</h3><p>We stay through execution when you want us to — running workstreams alongside your team, not handing off a binder.</p></div>
+      </div>
+      <div class="p-step reveal-up">
+        <div class="p-num">04</div>
+        <div class="p-step-body"><h3>Measure</h3><p>Every engagement ends with a defined set of metrics we track together, so "did it work" has a real answer.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="whyus">
+  <div class="wrap">
+    <div class="whyus-head reveal-up">
+      <div class="eyebrow">Why Stackly</div>
+      <h2>What's different about working with us.</h2>
+    </div>
+    <div class="compare-wrap reveal-up">
+      <table class="compare">
+        <thead><tr><th>Consideration</th><th>Large consultancies</th><th>Stackly Consulting</th></tr></thead>
+        <tbody>
+          <tr><td>Who's in the room</td><td class="no">Junior staff, rotating</td><td class="yes">Same senior partner, start to finish</td></tr>
+          <tr><td>Timeline to first insight</td><td class="no">6–10 weeks</td><td class="yes">2–3 weeks</td></tr>
+          <tr><td>Recommendations</td><td class="no">Framework-first</td><td class="yes">Tested against your constraints</td></tr>
+          <tr><td>Post-engagement support</td><td class="no">Extra retainer required</td><td class="yes">Built into the scope</td></tr>
+          <tr><td>Pricing structure</td><td class="no">Opaque, hours-based</td><td class="yes">Fixed scope, agreed upfront</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING NOTE ============ -->
+<section class="pricing-note">
+  <div class="wrap reveal-up">
+    <div class="eyebrow" style="justify-content:center;">Investment</div>
+    <h2>Every engagement is scoped and priced upfront — no hourly surprises.</h2>
+    <p>Because scope varies with the size and complexity of the problem, we price each engagement individually after the first conversation. Most projects run 6–16 weeks.</p>
+    <a href="./404.html" class="btn btn-brass">Request a scoped proposal</a>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <div class="eyebrow reveal-up">Common questions</div>
+      <h2 class="reveal-up">Before you reach out</h2>
+      <p class="reveal-up">Answers to what most prospective clients ask on the first call.</p>
+    </div>
+    <div class="faq-list reveal-up">
+      <div class="faq-item open">
+        <button class="faq-q"><span>How long does a typical engagement run?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Most engagements run 6 to 16 weeks depending on scope, with the diagnostic phase taking 2–3 weeks on its own.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Do you work with early-stage companies?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Yes — alongside larger mandates, we take on a limited number of early-stage engagements each quarter, usually focused on operating model and go-to-market.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Will the same person stay on the account?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>The partner who scopes your engagement leads it end to end. We don't rotate staff mid-project.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can you work alongside our internal team?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>That's the default model — we embed with your team rather than working in isolation and presenting at the end.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section style="padding: clamp(60px,8vw,100px) 0;">
+  <div class="cta-band reveal-up">
+    <h2>Not sure which practice fits your problem?</h2>
+    <p>Tell us what's going on and we'll point you to the right place — or tell you honestly if we're not the right fit.</p>
+    <div class="btns">
+      <a href="./404.html" class="btn btn-brass">Book a consultation</a>
+      <a href="./404.html" class="btn btn-outline-cream">See our work</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" aria-label="Stackly Consulting home"><img src="./assets/stackly-logo.webp" alt="Stackly Consulting"></a>
+        <p>Stackly Consulting is an independent advisory firm working with founders and boards on strategy, operations, and the transformation decisions that don't wait.</p>
+        <div class="social-row">
+          <a href="404.html" aria-label="LinkedIn" class="sm-linkedin">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M100.3 448l-92.9 0 0-299.1 92.9 0 0 299.1zM53.8 108.1C24.1 108.1 0 83.5 0 53.8 0 39.5 5.7 25.9 15.8 15.8s23.8-15.8 38-15.8 27.9 5.7 38 15.8 15.8 23.8 15.8 38c0 29.7-24.1 54.3-53.8 54.3zM447.9 448l-92.7 0 0-145.6c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7l0 148.1-92.8 0 0-299.1 89.1 0 0 40.8 1.3 0c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3l0 164.3-.1 0z"/></svg>
+          </a>
+          <a href="404.html" aria-label="X (Twitter)" class="sm-x">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/></svg>
+          </a>
+          <a href="404.html" aria-label="Instagram" class="sm-instagram">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M224.3 141a115 115 0 1 0 -.6 230 115 115 0 1 0 .6-230zm-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1 -.6-149.2zm93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1 -53.6 0zm129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+          </a>
+          <a href="404.html" aria-label="YouTube" class="sm-youtube">
+            <svg viewBox="0 0 576 512"><path fill="currentColor" d="M549.7 124.1C543.5 100.4 524.9 81.8 501.4 75.5 458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5C51.2 81.8 32.7 100.4 26.4 124.1 15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8 42.6 11.5 213.4 11.5 213.4 11.5s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6l0-162.4 142.7 81.2-142.7 81.2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="case-studies.html">Case studies</a></li>
+          <li><a href="blog.html">Blogs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="./404.html">Strategy &amp; growth</a></li>
+          <li><a href="./404.html">Financial &amp; risk advisory</a></li>
+          <li><a href="./404.html">Operations excellence</a></li>
+          <li><a href="./404.html">Market entry &amp; expansion</a></li>
+          <li><a href="./404.html">Digital transformation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-addr">
+        <h4>Address</h4>
+        <address>MMR Complex, Periyakollappatty,<br>Chinna Thirupathi, Salem,<br>Tamil Nadu 636008</address>
+        <a href="./404.html./404.html">hello@stacklyconsulting.com</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Stackly Consulting. All rights reserved.</p>
+      <div class="legal">
+        <a href="404.html">Privacy policy</a>
+        <a href="404.html">Terms &amp; conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  // ---- header scroll shadow ----
+  var header = document.getElementById('siteHeader');
+  if(header){
+    window.addEventListener('scroll', function(){
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+  }
+
+  // ---- mobile drawer ----
+  var burger = document.getElementById('hamburgerBtn');
+  var drawer = document.getElementById('mobileDrawer');
+  var scrim  = document.getElementById('scrim');
+  var exitBtn = document.getElementById('drawerExit');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    burger.classList.add('active');
+    scrim.classList.add('show');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    burger.classList.remove('active');
+    scrim.classList.remove('show');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  if(burger){
+    burger.addEventListener('click', function(){
+      drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    exitBtn.addEventListener('click', closeDrawer);
+    scrim.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+  }
+
+  // ---- FAQ accordion (if present) ----
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){ o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ---- GSAP ----
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // page/hero word reveal
+    gsap.to('.page-hero .reveal-word span, .hero h1 .reveal-word span', {
+      y: 0, duration: 0.9, ease: 'power4.out', stagger: 0.06, delay: 0.2
+    });
+    gsap.fromTo('.page-hero .lead, .page-hero .hero-ctas, .breadcrumb',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.1, delay: 0.55 }
+    );
+    gsap.fromTo('.hero-copy .lead, .hero-ctas, .hero-proof',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12, delay: 0.7 }
+    );
+    gsap.fromTo('.hv-img, .hv-card, .hv-pin',
+      { opacity: 0, scale: 0.94 },
+      { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', stagger: 0.15, delay: 0.4 }
+    );
+
+    // generic reveal-up on scroll
+    gsap.utils.toArray('.reveal-up').forEach(function(el){
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    // stat counters
+    gsap.utils.toArray('[data-count]').forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var obj = { val: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 90%', once: true,
+        onEnter: function(){
+          gsap.to(obj, {
+            val: target, duration: 1.6, ease: 'power1.out',
+            onUpdate: function(){ el.textContent = Math.round(obj.val) + suffix; }
+          });
+        }
+      });
+    });
+
+  } else {
+    document.querySelectorAll('.reveal-up').forEach(function(el){ el.style.opacity = 1; el.style.transform = 'none'; });
+    document.querySelectorAll('.reveal-word span').forEach(function(el){ el.style.transform = 'translateY(0)'; });
+  }
+})();
+
+</script>
+<script>
+(function(){
+  var PATH = (window.location.pathname.split('/').pop() || 'index.html');
+  var ticking = false;
+  function saveState(){
+    try{ sessionStorage.setItem('stackly_last_position', JSON.stringify({ path: PATH, y: window.scrollY })); }catch(e){}
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ saveState(); ticking = false; }); }
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('beforeunload', saveState);
+  saveState();
+})();
+</script>
+</body>
+</html>
